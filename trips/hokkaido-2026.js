@@ -168,6 +168,7 @@ window.TRIP = {
   ],
 
   todos: [
+    { cat: "證件與租車", text: "Hanna 先到監理站申請補發駕照（台灣駕照遺失）。要先有駕照正本才能辦日文譯本，這項排在最前面", done: false },
     { cat: "證件與租車", text: "台灣駕照日文譯本（監理站 NT$100，國際駕照在日本無效）", done: false },
     { cat: "證件與租車", text: "租車加保 NOC 免除（雪地必備）", done: false },
     { cat: "證件與租車", text: "決定還車據點：札幌 or 旭川（訂車時就要指定）", done: false },
