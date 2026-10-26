@@ -197,7 +197,8 @@
       $("trip-title").textContent = T.title;
       $("trip-range").textContent = T.range || "";
       if (T.mode) { $("trip-mode").innerHTML = ""; $("trip-mode").appendChild(el("b", null, T.mode)); $("trip-mode").hidden = false; }
-      renderRail(T); renderDays(T); renderStays(T); renderTodos(T); renderNotes(T);
+      // 先畫出各區塊，導覽列最後建：它要用 IntersectionObserver 觀察 #day-N，卡片得先存在
+      renderDays(T); renderStays(T); renderTodos(T); renderNotes(T); renderRail(T);
       $("foot").innerHTML = "";
       $("foot").appendChild(document.createTextNode("資料檔："));
       $("foot").appendChild(el("code", null, "trips/" + T.id + ".js"));
@@ -210,6 +211,12 @@
       [["sec-stay", "住宿"], ["sec-todo", "待辦"], ["sec-talk", "討論"]].forEach(function (x) { var a = el("a", null, x[1]); a.href = "#" + x[0]; rail.appendChild(a); });
       var links = rail.querySelectorAll("a");
       var targets = Array.prototype.map.call(links, function (a) { return document.getElementById(a.getAttribute("href").slice(1)); });
+      // 點了先反藍，不等捲動事件
+      Array.prototype.forEach.call(links, function (a, i) {
+        a.addEventListener("click", function () {
+          Array.prototype.forEach.call(links, function (b, j) { b.classList.toggle("on", j === i); });
+        });
+      });
       var obs = new IntersectionObserver(function (entries) {
         entries.forEach(function (e) {
           if (!e.isIntersecting) return;
