@@ -23,12 +23,12 @@ window.TRIP = {
       title: "抵達 → 特急北斗直達函館",
       transport: "JR 快速 Airport（空港→南千歲）＋ 特急北斗指定席",
       items: [
-        { time: "14:05", kind: "move", text: "BR116 抵達新千歲機場（桃園 09:30 起飛）", url: "https://maps.google.com/?cid=1903673735198072182" },
+        { time: "14:05", kind: "move", text: "BR116 抵達新千歲機場（桃園 09:30 起飛）", url: "https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8D%83%E6%AD%B3%E7%A9%BA%E6%B8%AF" },
         { time: "14:05", kind: "move", text: "出關領行李，抓 1～1.5 小時" },
         { time: "16:19", kind: "move", text: "南千歲搭特急北斗（札幌 15:45 發），車程約 3 小時 10 分" },
-        { time: "19:29", kind: "stay", text: "抵達函館，入住 JR Inn Hakodate", url: "https://maps.google.com/?cid=7468249822368411182" },
+        { time: "19:29", kind: "stay", text: "抵達函館，入住 JR Inn Hakodate", url: "https://www.google.com/maps/search/?api=1&query=JR%20Inn%20%E5%87%BD%E9%A4%A8" },
         { time: "19:45", kind: "eat",  text: "晚餐函館鹽味拉麵。店家多 20:00–21:00 打烊，出站直接去，別先回房。備選：網友推的 Soup Curry Begirama，位置與營業時間查不到，要吃請先確認" },
-        { time: "20:30", kind: "lit",  text: "散步 10 分鐘到金森紅磚倉庫看夜間點燈", url: "https://maps.google.com/?cid=12555325514605175032" },
+        { time: "20:30", kind: "lit",  text: "散步 10 分鐘到金森紅磚倉庫看夜間點燈", url: "https://www.google.com/maps/search/?api=1&query=%E9%87%91%E6%A3%AE%E8%B5%A4%E3%83%AC%E3%83%B3%E3%82%AC%E5%80%89%E5%BA%AB" },
         { time: "",      kind: "warn", text: "北斗已全車指定席、無自由席。買可變更票種，班機延誤時才有退路。趕不上這班，下一班到函館 20:39、末班 22:31" }
       ]
     },
@@ -37,19 +37,19 @@ window.TRIP = {
       title: "函館一日：朝市、元町、五稜星の夢、大黑屋、百萬夜景",
       transport: "市電＋巴士／計程車。全天由西往東不走回頭路；買市電・巴士共通一日券約 ¥1,000",
       items: [
-        { time: "08:00", kind: "eat",  text: "函館朝市海鮮丼（飯店樓下步行 1 分）。冬季常無活烏賊，別抱太大期待", url: "https://maps.google.com/?cid=14984501438965701479" },
+        { time: "08:00", kind: "eat",  text: "函館朝市海鮮丼（飯店樓下步行 1 分）。冬季常無活烏賊，別抱太大期待", url: "https://www.google.com/maps/search/?api=1&query=%E5%87%BD%E9%A4%A8%E6%9C%9D%E5%B8%82" },
         { time: "09:30", kind: "move", text: "搭市電到元町（「十字街」或「末広町」下車）" },
-        { time: "10:00", kind: "see",  text: "八幡坂、元町教會群、舊函館區公會堂", url: "https://maps.google.com/?cid=3912959883652872542" },
+        { time: "10:00", kind: "see",  text: "八幡坂、元町教會群、舊函館區公會堂", url: "https://www.google.com/maps/search/?api=1&query=%E5%85%AB%E5%B9%A1%E5%9D%82%20%E5%87%BD%E9%A4%A8" },
         { time: "12:00", kind: "eat",  text: "走到灣區吃小丑漢堡（金森倉庫附近有分店）。份量吃少一點，留胃給晚上的羊肉" },
         { time: "13:30", kind: "move", text: "計程車或巴士前往女子修道院（在函館東側、離五稜郭較近）" },
-        { time: "14:15", kind: "see",  text: "特拉普派女子修道院，特濃冰淇淋。內部不開放，前庭、資料室、売店約 40 分就夠，15:00 離開", url: "https://maps.google.com/?cid=10137258327179064166" },
+        { time: "14:15", kind: "see",  text: "特拉普派女子修道院，特濃冰淇淋。內部不開放，前庭、資料室、売店約 40 分就夠，15:00 離開", url: "https://www.google.com/maps/search/?api=1&query=%E3%83%88%E3%83%A9%E3%83%94%E3%82%B9%E3%83%81%E3%83%8C%E4%BF%AE%E9%81%93%E9%99%A2%20%E5%87%BD%E9%A4%A8" },
         { time: "15:00", kind: "move", text: "計程車約 20 分到五稜郭" },
         { time: "15:30", kind: "lit",  text: "先在地面繞護城河一圈（1.8 公里）。16:05 日落，走到一半就能看它點燈成星形" },
-        { time: "16:30", kind: "lit",  text: "五稜郭塔看「五稜星の夢」點燈首日，從 90 公尺高俯瞰點燈的星形護城河。塔營業至 18:00（售票 17:50），看完走去大黑屋剛好", url: "https://maps.google.com/?cid=8488056557626960030" },
+        { time: "16:30", kind: "lit",  text: "五稜郭塔看「五稜星の夢」點燈首日，從 90 公尺高俯瞰點燈的星形護城河。塔營業至 18:00（售票 17:50），看完走去大黑屋剛好", url: "https://www.google.com/maps/search/?api=1&query=%E4%BA%94%E7%A8%9C%E9%83%AD%E3%82%BF%E3%83%AF%E3%83%BC" },
         { time: "18:00", kind: "eat",  text: "大黑屋 函館五稜郭店 成吉思汗烤羊肉。✅ 已透過 Tabelog 訂位 12/1（二）18:00、2 位（僅訂座位），18:00–19:30" },
         { time: "",      kind: "warn", text: "大黑屋：餐費現場付，訂位用的信用卡不一定能在店內刷，備好現金。12/1 05:59（JST）前免費取消；當天取消或未到店 ¥3,000／人；系統手續費 ¥880 已扣、不退" },
         { time: "19:30", kind: "move", text: "離席，走 2 分到市電五稜郭公園前，搭到「十字街」約 20 分，再步行上坡到纜車站 10 分。⚠️ 19:40 後才離席就改叫計程車直達纜車山麓站（約 15 分、¥1,500 上下）" },
-        { time: "20:15", kind: "lit",  text: "函館山纜車上山看百萬夜景，20:15–21:00。末班上行 20:50、末班下行 21:00，到站約有 35 分緩衝；山頂約 40 分只看景拍照，20:00 後人潮已散比較好拍", url: "https://maps.google.com/?cid=4210433299778745223" },
+        { time: "20:15", kind: "lit",  text: "函館山纜車上山看百萬夜景，20:15–21:00。末班上行 20:50、末班下行 21:00，到站約有 35 分緩衝；山頂約 40 分只看景拍照，20:00 後人潮已散比較好拍", url: "https://www.google.com/maps/search/?api=1&query=%E5%87%BD%E9%A4%A8%E5%B1%B1%E3%83%AD%E3%83%BC%E3%83%97%E3%82%A6%E3%82%A7%E3%82%A4%20%E5%B1%B1%E9%BA%93%E9%A7%85" },
         { time: "21:30", kind: "stay", text: "回 JR Inn 泡頂樓大眾湯" },
         { time: "",      kind: "warn", text: "冬季函館山登山車道封閉、登山巴士停駛，只能搭纜車。十字街站步行 10 分上坡，雪天穿防滑鞋" }
       ]
@@ -60,11 +60,11 @@ window.TRIP = {
       transport: "自駕（08:30 函館駅前取車）",
       items: [
         { time: "08:30", kind: "move", text: "退房，Toyota 函館駅前店取車。核對雪胎、ETC 卡、NOC 免除" },
-        { time: "09:30", kind: "see",  text: "大沼國定公園漫步駒岳火山湖景（車程 40 分）", url: "https://maps.google.com/?cid=15820387607317786445" },
+        { time: "09:30", kind: "see",  text: "大沼國定公園漫步駒岳火山湖景（車程 40 分）", url: "https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E6%B2%BC%E5%85%AC%E5%9C%92%20%E5%8C%97%E6%B5%B7%E9%81%93" },
         { time: "10:30", kind: "eat",  text: "沼之家大沼糰子" },
         { time: "11:00", kind: "move", text: "大沼公園 IC 上道央道，全程高速約 2 小時到洞爺湖" },
         { time: "13:00", kind: "eat",  text: "洞爺湖溫泉街午餐" },
-        { time: "14:00", kind: "see",  text: "筒倉展望台鳥瞰雪湖全景（在湖西側，先繞這裡再往東到旅館最順）", url: "https://maps.google.com/?cid=17812005886361486743" },
+        { time: "14:00", kind: "see",  text: "筒倉展望台鳥瞰雪湖全景（在湖西側，先繞這裡再往東到旅館最順）", url: "https://www.google.com/maps/search/?api=1&query=%E3%82%B5%E3%82%A4%E3%83%AD%E5%B1%95%E6%9C%9B%E5%8F%B0%20%E6%B4%9E%E7%88%BA%E6%B9%96" },
         { time: "14:30", kind: "see",  text: "可選：昭和新山・有珠山纜車，離湖之栖約 10 分鐘車程" },
         { time: "15:00", kind: "stay", text: "入住 The Lake Suite 湖之栖，先泡一輪客室露天風呂" },
         { time: "16:45", kind: "lit",  text: "開車 5 分鐘回溫泉街，看 17:00 點亮的燈飾隧道（にぎわい広場，免費）與手湯足湯" },
@@ -81,8 +81,8 @@ window.TRIP = {
         { time: "09:15", kind: "move", text: "道央道 → 千歲惠庭 JCT → 道東道 → 占冠 IC → 國道 237 北上，約 250 公里、冬季 3.5–4 小時" },
         { time: "13:30", kind: "eat",  text: "抵富良野，午餐在地咖哩歐姆蛋包飯" },
         { time: "14:30", kind: "see",  text: "富良野市街散策（果醬園、起司工房可視時間安排）" },
-        { time: "15:30", kind: "stay", text: "入住 Nozo Hotel", url: "https://maps.google.com/?cid=15886981144007351211" },
-        { time: "16:00", kind: "lit",  text: "散步到森林精靈露台看雪景點燈（富良野日落約 15:55）", url: "https://maps.google.com/?cid=12030230219665991724" },
+        { time: "15:30", kind: "stay", text: "入住 Nozo Hotel", url: "https://www.google.com/maps/search/?api=1&query=Nozo%20Hotel%20%E5%AF%8C%E8%89%AF%E9%87%8E" },
+        { time: "16:00", kind: "lit",  text: "散步到森林精靈露台看雪景點燈（富良野日落約 15:55）", url: "https://www.google.com/maps/search/?api=1&query=%E3%83%8B%E3%83%B3%E3%82%B0%E3%83%AB%E3%83%86%E3%83%A9%E3%82%B9%20%E5%AF%8C%E8%89%AF%E9%87%8E" },
         { time: "19:00", kind: "see",  text: "回飯店大眾湯與三溫暖" },
         { time: "",      kind: "warn", text: "若道東道因暴雪封閉，改走道央道經滝川轉國道 38，多繞約 50 公里、多 1 小時" }
       ]
@@ -92,11 +92,11 @@ window.TRIP = {
       title: "美瑛白天雪原，入夜連拍兩處點燈",
       transport: "自駕（富良野↔美瑛約 25 公里）",
       items: [
-        { time: "09:00", kind: "see",  text: "美瑛冬日巡禮：Ken & Mary 之樹、七星之樹", url: "https://maps.google.com/?cid=17234676644265545203" },
+        { time: "09:00", kind: "see",  text: "美瑛冬日巡禮：Ken & Mary 之樹、七星之樹", url: "https://www.google.com/maps/search/?api=1&query=%E3%82%B1%E3%83%B3%E3%81%A8%E3%83%A1%E3%83%AA%E3%83%BC%E3%81%AE%E6%9C%A8%20%E7%BE%8E%E7%91%9B" },
         { time: "12:00", kind: "eat",  text: "美瑛市區午餐" },
-        { time: "13:30", kind: "see",  text: "四季彩之丘廣袤雪原（冬季有雪上摩托車等活動）", url: "https://maps.google.com/?cid=12285817294432241726" },
-        { time: "16:30", kind: "lit",  text: "白鬚瀑布點燈（藍水與冰柱）", url: "https://maps.google.com/?cid=5006450697926125092" },
-        { time: "16:50", kind: "lit",  text: "車程 3 分鐘轉青池看夜間點燈（12 月點燈 16:30–21:00）", url: "https://maps.google.com/?cid=4218820616147695262" },
+        { time: "13:30", kind: "see",  text: "四季彩之丘廣袤雪原（冬季有雪上摩托車等活動）", url: "https://www.google.com/maps/search/?api=1&query=%E5%9B%9B%E5%AD%A3%E5%BD%A9%E3%81%AE%E4%B8%98%20%E7%BE%8E%E7%91%9B" },
+        { time: "16:30", kind: "lit",  text: "白鬚瀑布點燈（藍水與冰柱）", url: "https://www.google.com/maps/search/?api=1&query=%E7%99%BD%E3%81%B2%E3%81%92%E3%81%AE%E6%BB%9D%20%E7%BE%8E%E7%91%9B" },
+        { time: "16:50", kind: "lit",  text: "車程 3 分鐘轉青池看夜間點燈（12 月點燈 16:30–21:00）", url: "https://www.google.com/maps/search/?api=1&query=%E7%99%BD%E9%87%91%E9%9D%92%E3%81%84%E6%B1%A0" },
         { time: "19:00", kind: "stay", text: "返回 Nozo Hotel 連住第二晚" },
         { time: "",      kind: "warn", text: "12 月初青池已結冰覆雪，白天看不到藍色。點燈版才是冬季唯一正確的打開方式" }
       ]
@@ -107,13 +107,13 @@ window.TRIP = {
       transport: "自駕 ＋ 18:00 前札幌站前還車",
       items: [
         { time: "09:00", kind: "move", text: "退房出發，車程約 1 小時" },
-        { time: "10:30", kind: "see",  text: "旭山動物園開園即入，待到 13:00。冬季 10:30–15:30、最終入園 15:00", url: "https://maps.google.com/?cid=14436577317726475219" },
-        { time: "13:00", kind: "eat",  text: "旭川拉麵。拉麵村距園區 15 分但偏觀光；市區梅光軒本店或山頭火本店多 15 分車程", url: "https://maps.google.com/?cid=6890351368943780570" },
+        { time: "10:30", kind: "see",  text: "旭山動物園開園即入，待到 13:00。冬季 10:30–15:30、最終入園 15:00", url: "https://www.google.com/maps/search/?api=1&query=%E6%97%AD%E5%B1%B1%E5%8B%95%E7%89%A9%E5%9C%92" },
+        { time: "13:00", kind: "eat",  text: "旭川拉麵。拉麵村距園區 15 分但偏觀光；市區梅光軒本店或山頭火本店多 15 分車程", url: "https://www.google.com/maps/search/?api=1&query=%E3%81%82%E3%81%95%E3%81%B2%E3%81%8B%E3%82%8F%E3%83%A9%E3%83%BC%E3%83%A1%E3%83%B3%E6%9D%91" },
         { time: "14:30", kind: "move", text: "道央道約 2 小時回札幌市區" },
         { time: "18:00", kind: "move", text: "札幌車站前營業所還車（還車前先加滿油）" },
-        { time: "18:30", kind: "stay", text: "入住由緣札幌", url: "https://maps.google.com/?cid=13589885233159034153" },
+        { time: "18:30", kind: "stay", text: "入住由緣札幌", url: "https://www.google.com/maps/search/?api=1&query=ONSEN%20RYOKAN%20%E7%94%B1%E7%B8%81%20%E6%9C%AD%E5%B9%8C" },
         { time: "19:00", kind: "eat",  text: "三大蟹吃到飽" },
-        { time: "20:30", kind: "see",  text: "狸小路商店街採買藥妝（由緣步行 5 分）", url: "https://maps.google.com/?cid=4481098664188582049" },
+        { time: "20:30", kind: "see",  text: "狸小路商店街採買藥妝（由緣步行 5 分）", url: "https://www.google.com/maps/search/?api=1&query=%E7%8B%B8%E5%B0%8F%E8%B7%AF%E5%95%86%E5%BA%97%E8%A1%97%20%E6%9C%AD%E5%B9%8C" },
         { time: "",      kind: "warn", text: "企鵝散步 12 月中下旬才開始（上一季 12/18），12/5 看不到。館內企鵝照常展示" },
         { time: "",      kind: "warn", text: "替代方案：改在旭川還車＋特急ライラック（1 小時 25 分）回札幌。異地還車費同為 ¥9,900，可換掉最危險的夜間雪地高速" }
       ]
@@ -124,7 +124,7 @@ window.TRIP = {
       transport: "JR 快速 Airport 約 35 分",
       items: [
         { time: "09:30", kind: "move", text: "JR 札幌站搭快速 Airport 往小樽（35 分鐘）" },
-        { time: "10:30", kind: "see",  text: "小樽運河、堺町通商店街、小樽音樂盒堂", url: "https://maps.google.com/?cid=4194098495000921810" },
+        { time: "10:30", kind: "see",  text: "小樽運河、堺町通商店街、小樽音樂盒堂", url: "https://www.google.com/maps/search/?api=1&query=%E5%B0%8F%E6%A8%BD%E9%81%8B%E6%B2%B3" },
         { time: "17:30", kind: "eat",  text: "小樽政壽司" },
         { time: "19:30", kind: "move", text: "搭 JR 返回札幌，回飯店泡湯" }
       ]
@@ -134,11 +134,11 @@ window.TRIP = {
       title: "白色戀人 → 北海道神宮 → 白色燈樹節",
       transport: "地下鐵＋步行",
       items: [
-        { time: "10:00", kind: "see",  text: "搭地下鐵前往白色戀人公園", url: "https://maps.google.com/?cid=16027967817452601745" },
-        { time: "13:30", kind: "see",  text: "參拜雪中的北海道神宮", url: "https://maps.google.com/?cid=16729227658742878216" },
+        { time: "10:00", kind: "see",  text: "搭地下鐵前往白色戀人公園", url: "https://www.google.com/maps/search/?api=1&query=%E7%99%BD%E3%81%84%E6%81%8B%E4%BA%BA%E3%83%91%E3%83%BC%E3%82%AF" },
+        { time: "13:30", kind: "see",  text: "參拜雪中的北海道神宮", url: "https://www.google.com/maps/search/?api=1&query=%E5%8C%97%E6%B5%B7%E9%81%93%E7%A5%9E%E5%AE%AE" },
         { time: "15:00", kind: "see",  text: "札幌車站商圈最後大採購。伴手禮今天買齊，Day 9 機場只補貨" },
         { time: "18:00", kind: "eat",  text: "串燒居酒屋或蟹料理（羊肉已在 Day 2 大黑屋吃過，避免重複）" },
-        { time: "19:30", kind: "lit",  text: "大通公園白色燈樹節＋慕尼黑聖誕市集（往年 11/21–12/25）", url: "https://maps.google.com/?cid=12368908611183141182" },
+        { time: "19:30", kind: "lit",  text: "大通公園白色燈樹節＋慕尼黑聖誕市集（往年 11/21–12/25）", url: "https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E9%80%9A%E5%85%AC%E5%9C%92%20%E6%9C%AD%E5%B9%8C" },
         { time: "21:00", kind: "stay", text: "回房整理行李" }
       ]
     },
@@ -159,14 +159,14 @@ window.TRIP = {
 
   stays: [
     { name: "JR Inn Hakodate", checkin: "11/30", checkout: "12/02", nights: 2, price: 4263,
-      area: "函館站本體連通，下樓即達朝市", note: "", url: "https://maps.google.com/?cid=7468249822368411182" },
+      area: "函館站本體連通，下樓即達朝市", note: "", url: "https://www.google.com/maps/search/?api=1&query=JR%20Inn%20%E5%87%BD%E9%A4%A8" },
     { name: "The Lake Suite 湖之栖", checkin: "12/02", checkout: "12/03", nights: 1, price: 12844,
       area: "壯瞥町湖東南岸，全室客室露天風呂",
       note: "不在溫泉街主街，離にぎわい広場約 2 公里要開車；餐食方案待確認" },
     { name: "Nozo Hotel", checkin: "12/03", checkout: "12/05", nights: 2, price: 8160,
-      area: "富良野精品飯店，附大眾湯與三溫暖", note: "", url: "https://maps.google.com/?cid=15886981144007351211" },
+      area: "富良野精品飯店，附大眾湯與三溫暖", note: "", url: "https://www.google.com/maps/search/?api=1&query=Nozo%20Hotel%20%E5%AF%8C%E8%89%AF%E9%87%8E" },
     { name: "ONSEN RYOKAN Yuen Sapporo", checkin: "12/05", checkout: "12/08", nights: 3, price: 20381,
-      area: "大通公園旁，登別直送溫泉", note: "", url: "https://maps.google.com/?cid=13589885233159034153" }
+      area: "大通公園旁，登別直送溫泉", note: "", url: "https://www.google.com/maps/search/?api=1&query=ONSEN%20RYOKAN%20%E7%94%B1%E7%B8%81%20%E6%9C%AD%E5%B9%8C" }
   ],
 
   todos: [
