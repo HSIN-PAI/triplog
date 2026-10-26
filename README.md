@@ -44,7 +44,8 @@ window.TRIP = {
   updated: "2026-10-26",
 
   days: [
-    { n: 1, date: "11/30", weekday: "一", title: "這天的主題", transport: "這天的交通方式",
+    { n: 1, date: "11/30", weekday: "一", place: "函館", leg: "rail",   // place 顯示在路線圖站名；leg = rail 鐵路 | drive 自駕 | city 市區（決定線段顏色）
+      title: "這天的主題", transport: "這天的交通方式",
       items: [
         { time: "14:05", kind: "move", text: "做什麼", url: "https://maps.google.com/?cid=…" }
         //  kind：move 移動 | see 景點 | eat 吃 | lit 點燈 | stay 住宿 | warn 提醒

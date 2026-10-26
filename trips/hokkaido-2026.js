@@ -3,6 +3,7 @@
 // 改行程只要改這個檔案，trip.html 不用動。
 //
 // 欄位說明
+//   days[].place / leg   ：當天所在地（路線圖站名）／交通型態 rail 鐵路 | drive 自駕 | city 市區
 //   days[].items[].kind：move 移動 | see 景點 | eat 吃 | lit 點燈 | stay 住宿 | warn 提醒
 //   days[].items[].url ：選填，會顯示成「地圖」小連結
 //   stays[].price      ：TWD，1 房 2 大人
@@ -19,7 +20,7 @@ window.TRIP = {
 
   days: [
     {
-      n: 1, date: "11/30", weekday: "一",
+      n: 1, date: "11/30", weekday: "一", place: "函館", leg: "rail",
       title: "抵達 → 特急北斗直達函館",
       transport: "JR 快速 Airport（空港→南千歲）＋ 特急北斗指定席",
       items: [
@@ -33,7 +34,7 @@ window.TRIP = {
       ]
     },
     {
-      n: 2, date: "12/01", weekday: "二",
+      n: 2, date: "12/01", weekday: "二", place: "函館", leg: "city",
       title: "函館一日：朝市、元町、五稜星の夢、大黑屋、百萬夜景",
       transport: "市電＋巴士／計程車。全天由西往東不走回頭路；買市電・巴士共通一日券約 ¥1,000",
       items: [
@@ -55,7 +56,7 @@ window.TRIP = {
       ]
     },
     {
-      n: 3, date: "12/02", weekday: "三",
+      n: 3, date: "12/02", weekday: "三", place: "洞爺湖", leg: "drive",
       title: "取車北上 → 大沼 → 洞爺湖溫泉",
       transport: "自駕（08:30 函館駅前取車）",
       items: [
@@ -73,7 +74,7 @@ window.TRIP = {
       ]
     },
     {
-      n: 4, date: "12/03", weekday: "四",
+      n: 4, date: "12/03", weekday: "四", place: "富良野", leg: "drive",
       title: "洞爺湖 → 富良野",
       transport: "自駕 約 250 公里、冬季 3.5～4 小時",
       items: [
@@ -88,7 +89,7 @@ window.TRIP = {
       ]
     },
     {
-      n: 5, date: "12/04", weekday: "五",
+      n: 5, date: "12/04", weekday: "五", place: "美瑛", leg: "drive",
       title: "美瑛白天雪原，入夜連拍兩處點燈",
       transport: "自駕（富良野↔美瑛約 25 公里）",
       items: [
@@ -102,7 +103,7 @@ window.TRIP = {
       ]
     },
     {
-      n: 6, date: "12/05", weekday: "六",
+      n: 6, date: "12/05", weekday: "六", place: "旭川→札幌", leg: "drive",
       title: "旭山動物園 → 札幌還車",
       transport: "自駕 ＋ 18:00 前札幌站前還車",
       items: [
@@ -119,7 +120,7 @@ window.TRIP = {
       ]
     },
     {
-      n: 7, date: "12/06", weekday: "日",
+      n: 7, date: "12/06", weekday: "日", place: "小樽", leg: "rail",
       title: "小樽一日遊",
       transport: "JR 快速 Airport 約 35 分",
       items: [
@@ -130,7 +131,7 @@ window.TRIP = {
       ]
     },
     {
-      n: 8, date: "12/07", weekday: "一",
+      n: 8, date: "12/07", weekday: "一", place: "札幌", leg: "city",
       title: "白色戀人 → 北海道神宮 → 白色燈樹節",
       transport: "地下鐵＋步行",
       items: [
@@ -143,7 +144,7 @@ window.TRIP = {
       ]
     },
     {
-      n: 9, date: "12/08", weekday: "二",
+      n: 9, date: "12/08", weekday: "二", place: "返家", leg: "rail",
       title: "平安返家",
       transport: "JR 快速 Airport 約 37 分",
       items: [
