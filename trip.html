@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="author" content="Hsin Pai">
+  <meta name="color-scheme" content="light dark">
+  <title>行程</title>
+  <style>
+    /* Layout: one scrolling column, sticky section rail, day cards with a timed left rail.
+       Palette: cold winter blue field, warm lamp tone reserved for 點燈 items. */
+    :root {
+      --bg: #eef1f5; --surface: #ffffff; --surface2: #f6f8fb; --sunken: #e7ecf2;
+      --fg: #0f1620; --muted: #5b6878; --faint: #8695a6; --line: #d8e0e8;
+      --accent: #1f5f8b; --accent-soft: #e2edf6;
+      --warm: #9a6417; --warm-soft: #f7eedc;
+      --ok: #2c7355; --ok-soft: #e0f0e8;
+      --alert: #9e3c1b; --alert-soft: #fae7df;
+      --serif: "Songti TC", "Noto Serif TC", "PingFang TC", serif;
+      --sans: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", "Segoe UI", sans-serif;
+      --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0a1016; --surface: #141c25; --surface2: #1a232e; --sunken: #0f1720;
+        --fg: #e7edf4; --muted: #93a2b3; --faint: #71808f; --line: #27323e;
+        --accent: #74b4e0; --accent-soft: #163142;
+        --warm: #dfa85e; --warm-soft: #312611;
+        --ok: #62bb8e; --ok-soft: #13291f;
+        --alert: #e4866a; --alert-soft: #311a13;
+      }
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--fg); font-family: var(--sans); line-height: 1.62; font-size: 15px;
+      -webkit-font-smoothing: antialiased; }
+    a { color: var(--accent); }
+    .wrap { max-width: 880px; margin: 0 auto;
+      padding-left: max(16px, env(safe-area-inset-left, 0px));
+      padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+    .top { position: sticky; top: 0; z-index: 9; background: var(--surface); border-bottom: 1px solid var(--line);
+      padding-top: env(safe-area-inset-top, 0px); }
+    .top .wrap { padding-block: 12px 0; }
+    .crumb { font-size: .76rem; color: var(--muted); margin-bottom: 2px; }
+    .crumb a { color: var(--muted); text-decoration: none; }
+    .crumb a:hover { color: var(--accent); }
+    .brand { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+    .brand h1 { font-family: var(--serif); font-size: 1.3rem; margin: 0; letter-spacing: .01em; text-wrap: balance; }
+    .brand .range { font-family: var(--mono); font-size: .78rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+    .modeline { font-size: .78rem; color: var(--muted); margin-top: 3px; }
+    .modeline b { font-weight: 500; color: var(--fg); }
+    .rail { display: flex; gap: 4px; overflow-x: auto; padding-block: 10px; margin-top: 2px; scrollbar-width: thin; }
+    .rail a { flex: none; font-size: .78rem; padding: 5px 11px; border-radius: 999px; text-decoration: none;
+      border: 1px solid var(--line); background: var(--surface2); color: var(--muted); white-space: nowrap; }
+    .rail a:hover { color: var(--fg); }
+    .rail a.on { background: var(--accent); border-color: var(--accent); color: var(--surface); }
+
+    main { padding-block: 22px 64px; display: flex; flex-direction: column; gap: 34px; }
+    section { scroll-margin-top: 130px; }
+    .shead { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+    .shead h2 { font-family: var(--serif); font-size: 1.05rem; margin: 0; letter-spacing: .02em; }
+    .shead .sub { font-size: .78rem; color: var(--muted); }
+
+    .days { display: flex; flex-direction: column; gap: 14px; }
+    .day { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; scroll-margin-top: 130px; }
+    .dhead { display: flex; gap: 12px; align-items: flex-start; padding: 13px 14px; background: var(--surface2); border-bottom: 1px solid var(--line); }
+    .dnum { font-family: var(--serif); font-size: 1.5rem; line-height: 1; color: var(--accent); flex: none; min-width: 2.1ch; font-variant-numeric: tabular-nums; }
+    .dmeta { flex: 1; min-width: 0; }
+    .ddate { font-family: var(--mono); font-size: .74rem; color: var(--muted); font-variant-numeric: tabular-nums; letter-spacing: .02em; }
+    .dtitle { font-weight: 700; font-size: .97rem; line-height: 1.4; margin-top: 2px; }
+    .dtrans { display: flex; align-items: center; gap: 6px; margin-top: 5px; font-size: .78rem; color: var(--accent); }
+    .dtrans svg { flex: none; }
+    .items { list-style: none; margin: 0; padding: 6px 14px 12px; display: flex; flex-direction: column; }
+    .it { display: grid; grid-template-columns: 54px 1fr; gap: 10px; align-items: start; padding: 7px 0; border-bottom: 1px dashed var(--line); }
+    .it:last-child { border-bottom: 0; }
+    .it .time { font-family: var(--mono); font-size: .76rem; color: var(--muted); font-variant-numeric: tabular-nums; padding-top: 3px; }
+    .it .body { min-width: 0; }
+    .kindrow { display: flex; align-items: center; gap: 6px; margin-bottom: 2px; }
+    .kind { font-size: .66rem; padding: 1px 7px; border-radius: 999px; letter-spacing: .04em; white-space: nowrap; }
+    .k-move { background: var(--accent-soft); color: var(--accent); }
+    .k-see  { background: var(--sunken); color: var(--muted); }
+    .k-eat  { background: var(--ok-soft); color: var(--ok); }
+    .k-lit  { background: var(--warm-soft); color: var(--warm); }
+    .k-stay { background: var(--accent-soft); color: var(--accent); }
+    .k-warn { background: var(--alert-soft); color: var(--alert); }
+    .it .text { font-size: .88rem; }
+    .it .map { font-size: .72rem; margin-left: 6px; white-space: nowrap; text-decoration: none; }
+    .it .map:hover { text-decoration: underline; }
+    .it.warn .body { background: var(--alert-soft); border-radius: 7px; padding: 5px 8px; }
+    .it.warn .time { opacity: .4; }
+
+    .tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+    table { border-collapse: collapse; width: 100%; min-width: 600px; font-size: .84rem; }
+    th, td { text-align: left; padding: 9px 11px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { background: var(--surface2); font-weight: 500; font-size: .72rem; letter-spacing: .06em; color: var(--muted); white-space: nowrap; }
+    tbody tr:last-child td { border-bottom: 0; }
+    td.num, th.num { text-align: right; font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+    tfoot td { border-top: 2px solid var(--line); font-weight: 700; background: var(--surface2); }
+    .flagnote { font-size: .74rem; color: var(--warm); margin-top: 2px; }
+    td a { text-decoration: none; } td a:hover { text-decoration: underline; }
+
+    .todogroup { margin-bottom: 16px; }
+    .todogroup h3 { font-size: .74rem; letter-spacing: .08em; color: var(--muted); font-weight: 500; margin: 0 0 7px; }
+    .todos { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 3px; }
+    .td { display: grid; grid-template-columns: 18px 1fr; gap: 9px; align-items: start; font-size: .88rem;
+      background: var(--surface); border: 1px solid var(--line); border-radius: 9px; padding: 7px 10px; }
+    .td .box { width: 16px; height: 16px; border: 1.5px solid var(--faint); border-radius: 4px; margin-top: 4px; display: grid; place-items: center; font-size: .7rem; color: var(--surface); }
+    .td.done .box { background: var(--ok); border-color: var(--ok); }
+    .td.done .txt { color: var(--faint); text-decoration: line-through; }
+
+    .notes { display: flex; flex-direction: column; gap: 9px; }
+    .note { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+    .nmeta { display: flex; gap: 8px; align-items: baseline; font-size: .72rem; color: var(--muted); margin-bottom: 3px; }
+    .nmeta .who { font-weight: 700; color: var(--fg); }
+    .nmeta .at { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+    .note p { margin: 0; font-size: .88rem; white-space: pre-wrap; }
+
+    .empty { border: 1px dashed var(--line); border-radius: 12px; padding: 26px 18px; text-align: center; color: var(--muted); font-size: .86rem; background: var(--surface); }
+    .empty b { display: block; color: var(--fg); font-size: .95rem; margin-bottom: 5px; font-family: var(--serif); }
+    .foot { font-size: .74rem; color: var(--faint); text-align: center; padding-top: 6px; }
+    .foot code { font-family: var(--mono); }
+    @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+    @media (max-width: 520px) { .it { grid-template-columns: 48px 1fr; gap: 7px; } .dnum { font-size: 1.25rem; } main { gap: 28px; } }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <div class="crumb"><a href="index.html">← 所有旅程</a></div>
+      <div class="brand">
+        <h1 id="trip-title">載入中…</h1>
+        <span class="range" id="trip-range"></span>
+      </div>
+      <div class="modeline" id="trip-mode" hidden></div>
+      <nav class="rail" id="rail"></nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="sec-plan">
+      <div class="shead"><h2>逐日行程</h2><span class="sub" id="plan-sub"></span></div>
+      <div class="days" id="days"><div class="empty"><b>行程載入中</b></div></div>
+    </section>
+    <section id="sec-stay">
+      <div class="shead"><h2>住宿與費用</h2><span class="sub">金額為 1 房 2 大人的房價（TWD）</span></div>
+      <div id="stays"></div>
+    </section>
+    <section id="sec-todo">
+      <div class="shead"><h2>出發前待辦</h2><span class="sub" id="todo-count"></span></div>
+      <div id="todos"></div>
+    </section>
+    <section id="sec-talk">
+      <div class="shead"><h2>討論中</h2><span class="sub">還沒定案的事</span></div>
+      <div class="notes" id="notes"></div>
+    </section>
+    <p class="foot" id="foot"></p>
+  </main>
+
+  <script src="trips/index.js"></script>
+  <script>
+  (function () {
+    "use strict";
+    var KINDS = { move: "移動", see: "景點", eat: "吃", lit: "點燈", stay: "住宿", warn: "提醒" };
+    function $(id) { return document.getElementById(id); }
+    function el(tag, cls, txt) { var n = document.createElement(tag); if (cls) n.className = cls; if (txt != null) n.textContent = txt; return n; }
+    function fmt(n) { return (Number(n) || 0).toLocaleString("en-US"); }
+
+    // ---- which trip? ?trip=<id>, else the first in trips/index.js ----
+    var params = new URLSearchParams(location.search);
+    var id = params.get("trip") || (window.TRIPS && window.TRIPS[0] && window.TRIPS[0].id);
+    if (!id) { fail("trips/index.js 裡還沒有任何旅程。"); return; }
+    var s = document.createElement("script");
+    s.src = "trips/" + encodeURIComponent(id) + ".js";
+    s.onload = function () { if (window.TRIP) render(window.TRIP); else fail("trips/" + id + ".js 沒有定義 window.TRIP。"); };
+    s.onerror = function () { fail("找不到 trips/" + id + ".js。檢查網址的 ?trip= 是否正確。"); };
+    document.head.appendChild(s);
+
+    function fail(msg) {
+      $("trip-title").textContent = "找不到這趟旅程";
+      var d = $("days"); d.innerHTML = ""; var e = el("div", "empty"); e.appendChild(el("b", null, "載入失敗")); e.appendChild(document.createTextNode(msg)); d.appendChild(e);
+      $("stays").hidden = true; $("todos").hidden = true; $("notes").hidden = true;
+    }
+
+    function iconTransit() {
+      var ns = "http://www.w3.org/2000/svg", s = document.createElementNS(ns, "svg");
+      s.setAttribute("width", "13"); s.setAttribute("height", "13"); s.setAttribute("viewBox", "0 0 16 16");
+      s.setAttribute("fill", "none"); s.setAttribute("stroke", "currentColor"); s.setAttribute("stroke-width", "1.4");
+      s.setAttribute("stroke-linecap", "round"); s.setAttribute("stroke-linejoin", "round");
+      var p = document.createElementNS(ns, "path"); p.setAttribute("d", "M4.5 2.5h7a1.5 1.5 0 0 1 1.5 1.5v6a1.5 1.5 0 0 1-1.5 1.5h-7A1.5 1.5 0 0 1 3 10V4a1.5 1.5 0 0 1 1.5-1.5Z");
+      var l = document.createElementNS(ns, "path"); l.setAttribute("d", "M3 6.5h10M5.5 9h.01M10.5 9h.01M5 11.5 3.5 14M11 11.5 12.5 14");
+      s.appendChild(p); s.appendChild(l); return s;
+    }
+
+    function render(T) {
+      document.title = T.title + " · 行程";
+      $("trip-title").textContent = T.title;
+      $("trip-range").textContent = T.range || "";
+      if (T.mode) { $("trip-mode").innerHTML = ""; $("trip-mode").appendChild(el("b", null, T.mode)); $("trip-mode").hidden = false; }
+      renderRail(T); renderDays(T); renderStays(T); renderTodos(T); renderNotes(T);
+      $("foot").innerHTML = "";
+      $("foot").appendChild(document.createTextNode("資料檔："));
+      $("foot").appendChild(el("code", null, "trips/" + T.id + ".js"));
+      if (T.updated) $("foot").appendChild(document.createTextNode(" · 更新 " + T.updated));
+    }
+
+    function renderRail(T) {
+      var rail = $("rail"); rail.innerHTML = "";
+      (T.days || []).forEach(function (d) { var a = el("a", null, "D" + d.n); a.href = "#day-" + d.n; rail.appendChild(a); });
+      [["sec-stay", "住宿"], ["sec-todo", "待辦"], ["sec-talk", "討論"]].forEach(function (x) { var a = el("a", null, x[1]); a.href = "#" + x[0]; rail.appendChild(a); });
+      var links = rail.querySelectorAll("a");
+      var targets = Array.prototype.map.call(links, function (a) { return document.getElementById(a.getAttribute("href").slice(1)); });
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          var i = targets.indexOf(e.target); if (i < 0) return;
+          Array.prototype.forEach.call(links, function (a, j) { a.classList.toggle("on", j === i); });
+        });
+      }, { rootMargin: "-130px 0px -65% 0px" });
+      targets.forEach(function (t) { if (t) obs.observe(t); });
+    }
+
+    function renderDays(T) {
+      var host = $("days"); host.innerHTML = "";
+      var days = T.days || [];
+      $("plan-sub").textContent = days.length ? days.length + " 天" : "";
+      if (!days.length) { var e = el("div", "empty"); e.appendChild(el("b", null, "還沒排行程")); host.appendChild(e); return; }
+      days.forEach(function (d) {
+        var card = el("article", "day"); card.id = "day-" + d.n;
+        var head = el("div", "dhead");
+        head.appendChild(el("div", "dnum", String(d.n)));
+        var meta = el("div", "dmeta");
+        meta.appendChild(el("div", "ddate", (d.date || "") + (d.weekday ? "（" + d.weekday + "）" : "")));
+        meta.appendChild(el("div", "dtitle", d.title || ""));
+        if (d.transport) { var tr = el("div", "dtrans"); tr.appendChild(iconTransit()); tr.appendChild(el("span", null, d.transport)); meta.appendChild(tr); }
+        head.appendChild(meta); card.appendChild(head);
+        var ul = el("ul", "items");
+        (d.items || []).forEach(function (it) {
+          var li = el("li", "it" + (it.kind === "warn" ? " warn" : ""));
+          li.appendChild(el("div", "time", it.time || ""));
+          var body = el("div", "body");
+          var kr = el("div", "kindrow"); kr.appendChild(el("span", "kind k-" + (it.kind || "see"), KINDS[it.kind] || "景點")); body.appendChild(kr);
+          var tx = el("div", "text", it.text || "");
+          if (it.url) { var a = el("a", "map", "地圖 ↗"); a.href = it.url; a.target = "_blank"; a.rel = "noopener"; tx.appendChild(a); }
+          body.appendChild(tx); li.appendChild(body); ul.appendChild(li);
+        });
+        card.appendChild(ul); host.appendChild(card);
+      });
+    }
+
+    function renderStays(T) {
+      var host = $("stays"); host.innerHTML = "";
+      var rows = T.stays || [];
+      if (!rows.length) { var e = el("div", "empty"); e.appendChild(el("b", null, "還沒填住宿")); host.appendChild(e); return; }
+      var wrap = el("div", "tablewrap"), t = el("table"), thead = el("thead"), hr = el("tr");
+      ["飯店", "入住 / 退房", "晚", "金額", "每晚", "區域與備註"].forEach(function (h, i) { hr.appendChild(el("th", (i >= 2 && i <= 4) ? "num" : null, h)); });
+      thead.appendChild(hr); t.appendChild(thead);
+      var tb = el("tbody"), totN = 0, totP = 0, ppl = Number(T.travelers) || 2;
+      rows.forEach(function (s) {
+        totN += Number(s.nights) || 0; totP += Number(s.price) || 0;
+        var tr = el("tr");
+        var c1 = el("td"); if (s.url) { var a = el("a", null, s.name); a.href = s.url; a.target = "_blank"; a.rel = "noopener"; c1.appendChild(a); } else c1.textContent = s.name || "";
+        tr.appendChild(c1);
+        tr.appendChild(el("td", null, (s.checkin || "") + " → " + (s.checkout || "")));
+        tr.appendChild(el("td", "num", String(s.nights || "")));
+        tr.appendChild(el("td", "num", fmt(s.price)));
+        var per = (Number(s.nights) || 0) ? Math.round((Number(s.price) || 0) / Number(s.nights)) : 0;
+        tr.appendChild(el("td", "num", per ? fmt(per) : "—"));
+        var c6 = el("td", null, s.area || ""); if (s.note) c6.appendChild(el("div", "flagnote", s.note)); tr.appendChild(c6);
+        tb.appendChild(tr);
+      });
+      t.appendChild(tb);
+      var tf = el("tfoot"), fr = el("tr");
+      fr.appendChild(el("td", null, "合計")); fr.appendChild(el("td", null, ""));
+      fr.appendChild(el("td", "num", String(totN))); fr.appendChild(el("td", "num", fmt(totP)));
+      fr.appendChild(el("td", "num", totN ? fmt(Math.round(totP / totN)) : "—"));
+      fr.appendChild(el("td", null, "每人 " + fmt(Math.round(totP / ppl))));
+      tf.appendChild(fr); t.appendChild(tf); wrap.appendChild(t); host.appendChild(wrap);
+    }
+
+    function renderTodos(T) {
+      var host = $("todos"); host.innerHTML = "";
+      var todos = T.todos || [];
+      if (!todos.length) { $("todo-count").textContent = ""; var e = el("div", "empty"); e.appendChild(el("b", null, "沒有待辦")); host.appendChild(e); return; }
+      var done = todos.filter(function (t) { return t.done; }).length;
+      $("todo-count").textContent = "已完成 " + done + " / " + todos.length;
+      var cats = []; todos.forEach(function (t) { var c = t.cat || "其他"; if (cats.indexOf(c) < 0) cats.push(c); });
+      cats.forEach(function (cat) {
+        var g = el("div", "todogroup"); g.appendChild(el("h3", null, cat));
+        var ul = el("ul", "todos");
+        todos.filter(function (t) { return (t.cat || "其他") === cat; }).forEach(function (t) {
+          var li = el("li", "td" + (t.done ? " done" : ""));
+          li.appendChild(el("span", "box", t.done ? "✓" : ""));
+          li.appendChild(el("span", "txt", t.text || ""));
+          ul.appendChild(li);
+        });
+        g.appendChild(ul); host.appendChild(g);
+      });
+    }
+
+    function renderNotes(T) {
+      var host = $("notes"); host.innerHTML = "";
+      var notes = T.notes || [];
+      if (!notes.length) { var e = el("div", "empty"); e.appendChild(el("b", null, "沒有待討論的事")); host.appendChild(e); return; }
+      notes.forEach(function (n) {
+        var d = el("div", "note"), m = el("div", "nmeta");
+        m.appendChild(el("span", "who", n.by || "—")); m.appendChild(el("span", "at", n.at || ""));
+        d.appendChild(m); d.appendChild(el("p", null, n.text || "")); host.appendChild(d);
+      });
+    }
+  })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="author" content="Hsin Pai">
+  <meta name="color-scheme" content="light dark">
+  <title>TripLog 旅程</title>
+  <style>
+    :root {
+      --bg: #eef1f5; --surface: #ffffff; --surface2: #f6f8fb;
+      --fg: #0f1620; --muted: #5b6878; --faint: #8695a6; --line: #d8e0e8;
+      --accent: #1f5f8b; --accent-soft: #e2edf6; --ok: #2c7355; --ok-soft: #e0f0e8; --warm: #9a6417; --warm-soft: #f7eedc;
+      --serif: "Songti TC", "Noto Serif TC", "PingFang TC", serif;
+      --sans: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", "Segoe UI", sans-serif;
+      --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #0a1016; --surface: #141c25; --surface2: #1a232e; --fg: #e7edf4; --muted: #93a2b3; --faint: #71808f; --line: #27323e;
+        --accent: #74b4e0; --accent-soft: #163142; --ok: #62bb8e; --ok-soft: #13291f; --warm: #dfa85e; --warm-soft: #312611; }
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--fg); font-family: var(--sans); line-height: 1.6; font-size: 15px; -webkit-font-smoothing: antialiased; }
+    .wrap { max-width: 720px; margin: 0 auto; padding-block: calc(28px + env(safe-area-inset-top, 0px)) 64px;
+      padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+    h1 { font-family: var(--serif); font-size: 1.5rem; margin: 0 0 4px; }
+    .lead { color: var(--muted); font-size: .86rem; margin: 0 0 22px; }
+    .list { display: flex; flex-direction: column; gap: 12px; }
+    a.trip { display: block; text-decoration: none; color: inherit; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+    a.trip:hover { border-color: var(--accent); }
+    .row { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+    .row .t { font-family: var(--serif); font-size: 1.1rem; font-weight: 700; }
+    .row .r { font-family: var(--mono); font-size: .76rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+    .sum { color: var(--muted); font-size: .84rem; margin-top: 4px; }
+    .badge { display: inline-block; font-size: .66rem; padding: 1px 8px; border-radius: 999px; margin-top: 8px; letter-spacing: .04em; }
+    .b-planning { background: var(--warm-soft); color: var(--warm); }
+    .b-upcoming { background: var(--accent-soft); color: var(--accent); }
+    .b-done { background: var(--ok-soft); color: var(--ok); }
+    .empty { border: 1px dashed var(--line); border-radius: 12px; padding: 26px 18px; text-align: center; color: var(--muted); font-size: .86rem; background: var(--surface); }
+    .foot { font-size: .74rem; color: var(--faint); margin-top: 28px; }
+    .foot code { font-family: var(--mono); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>旅程</h1>
+    <p class="lead">每一趟出去玩的行程、住宿、待辦都在這裡。點進去看，連結可以直接分享給同行的人。</p>
+    <div class="list" id="list"></div>
+    <p class="foot">新增旅程：在 <code>trips/</code> 放一個資料檔，再加進 <code>trips/index.js</code>。</p>
+  </div>
+  <script src="trips/index.js"></script>
+  <script>
+    (function () {
+      var STATUS = { planning: ["規劃中", "b-planning"], upcoming: ["即將出發", "b-upcoming"], done: ["已完成", "b-done"] };
+      var host = document.getElementById("list");
+      var trips = window.TRIPS || [];
+      if (!trips.length) { host.innerHTML = '<div class="empty">還沒有任何旅程。</div>'; return; }
+      trips.forEach(function (t) {
+        var a = document.createElement("a"); a.className = "trip"; a.href = "trip.html?trip=" + encodeURIComponent(t.id);
+        var row = document.createElement("div"); row.className = "row";
+        var tt = document.createElement("span"); tt.className = "t"; tt.textContent = t.title || t.id;
+        var rr = document.createElement("span"); rr.className = "r"; rr.textContent = t.range || "";
+        row.appendChild(tt); row.appendChild(rr); a.appendChild(row);
+        if (t.summary) { var s = document.createElement("div"); s.className = "sum"; s.textContent = t.summary; a.appendChild(s); }
+        var st = STATUS[t.status]; if (st) { var b = document.createElement("span"); b.className = "badge " + st[1]; b.textContent = st[0]; a.appendChild(b); }
+        host.appendChild(a);
+      });
+    })();
+  </script>
+</body>
+</html>
