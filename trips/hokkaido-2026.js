@@ -213,19 +213,25 @@ window.TRIP = {
     },
     {
       n: 7, date: "12/06", weekday: "日", place: "小樽", leg: "rail", sun: { rise: "06:45", set: "16:02" },
-      title: "小樽一日遊",
-      transport: "JR 快速 Airport 小樽行約 35 分、¥800。只有標示「小樽」的班次才會到，很多班只開到札幌",
+      title: "小樽一日：三角市場、堺町通、運河瓦斯燈、政壽司",
+      transport: "JR 快速 Airport 小樽行約 35 分、¥800，只有標示「小樽」的班次才會到。小樽市內全程步行",
       items: [
         { time: "09:30", kind: "move", mode: "rail", from: "札幌", to: "小樽", via: "JR 快速 Airport（小樽行）", arr: "10:05", dur: "約 35 分，每 30 分一班",
           board: "由緣走到 JR 札幌站約 20 分（走チカホ到大通，再轉南北線一站到さっぽろ ¥210 也行）。往小樽方向在 2～4 番線，看發車看板找寫著「小樽」的エアポート；標示「札幌」止的班次不會到",
           alight: "小樽站出站，沿中央通直走下坡 10 分就是小樽運河",
           fare: "¥800／人，IC 卡直接刷進站", url: "https://www.google.com/maps/search/?api=1&query=%E5%B0%8F%E6%A8%BD%E9%A7%85", boardUrl: "https://www.google.com/maps/search/?api=1&query=%E6%9C%AD%E5%B9%8C%E9%A7%85" },
-        { time: "10:30", kind: "see",  text: "小樽運河、堺町通商店街、小樽音樂盒堂", url: "https://www.google.com/maps/search/?api=1&query=%E5%B0%8F%E6%A8%BD%E9%81%8B%E6%B2%B3" },
-        { time: "17:30", kind: "eat",  text: "小樽政壽司", url: "https://www.google.com/maps/search/?api=1&query=%E3%81%8A%E3%81%9F%E3%82%8B%E6%94%BF%E5%AF%BF%E5%8F%B8%20%E6%9C%AC%E5%BA%97" },
-        { time: "19:30", kind: "move", mode: "rail", from: "小樽", to: "札幌", via: "JR 快速 Airport 或普通車", dur: "快速 35 分、普通車約 50 分",
+        { time: "10:10", kind: "eat",  text: "三角市場海鮮丼早午餐：出站 1 分，滝波食堂、武田鮮魚店那幾家，早上最熱鬧", url: "https://www.google.com/maps/search/?api=1&query=%E5%B0%8F%E6%A8%BD%20%E4%B8%89%E8%A7%92%E5%B8%82%E5%A0%B4" },
+        { time: "11:00", kind: "see",  text: "堺町通商店街：北一硝子、六花亭、北菓楼，趁店剛開人少先逛先買", url: "https://www.google.com/maps/search/?api=1&query=%E5%B0%8F%E6%A8%BD%E5%A0%BA%E7%94%BA%E9%80%9A%E3%82%8A" },
+        { time: "12:30", kind: "eat",  text: "LeTAO 本店二樓咖啡廳吃雙層起司蛋糕，上鐘樓看街景", url: "https://www.google.com/maps/search/?api=1&query=%E3%83%AB%E3%82%BF%E3%82%AA%E6%9C%AC%E5%BA%97%20%E5%B0%8F%E6%A8%BD" },
+        { time: "13:30", kind: "see",  text: "小樽音樂盒堂、蒸氣時鐘，堺町通走到底", url: "https://www.google.com/maps/search/?api=1&query=%E5%B0%8F%E6%A8%BD%E3%82%AA%E3%83%AB%E3%82%B4%E3%83%BC%E3%83%AB%E5%A0%82" },
+        { time: "15:15", kind: "lit",  text: "回小樽運河：15:30–16:30 藍調時刻看瓦斯燈點亮（日落 16:02），這是今天的主菜", url: "https://www.google.com/maps/search/?api=1&query=%E5%B0%8F%E6%A8%BD%E9%81%8B%E6%B2%B3" },
+        { time: "17:00", kind: "eat",  text: "小樽政壽司本店晚餐。週日會排，線上先預約或提早到", url: "https://www.google.com/maps/search/?api=1&query=%E3%81%8A%E3%81%9F%E3%82%8B%E6%94%BF%E5%AF%BF%E5%8F%B8%20%E6%9C%AC%E5%BA%97" },
+        { time: "18:45", kind: "move", mode: "rail", from: "小樽", to: "札幌", via: "JR 快速 Airport 或普通車", arr: "19:20", dur: "快速 35 分、普通車約 50 分",
           board: "小樽站往札幌方向以 4 番線為主，看看板。快速每 30 分一班，等不到就搭普通車，只慢 15 分",
-          alight: "札幌站南口出站，走チカホ回由緣泡湯",
-          fare: "¥800／人，IC 卡", url: "https://www.google.com/maps/search/?api=1&query=%E6%9C%AD%E5%B9%8C%E9%A7%85", boardUrl: "https://www.google.com/maps/search/?api=1&query=%E5%B0%8F%E6%A8%BD%E9%A7%85" }
+          alight: "札幌站南口出站，走チカホ到大通，順路就是燈樹節",
+          fare: "¥800／人，IC 卡", url: "https://www.google.com/maps/search/?api=1&query=%E6%9C%AD%E5%B9%8C%E9%A7%85", boardUrl: "https://www.google.com/maps/search/?api=1&query=%E5%B0%8F%E6%A8%BD%E9%A7%85" },
+        { time: "20:00", kind: "see",  text: "札幌市區自由晃，看體力決定：大通公園燈樹節（由緣走 3 分，燈到 22:00）、狸小路、薄野喝一杯或宵夜（けやき味噌拉麵開到凌晨），都在走路範圍", url: "https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E9%80%9A%E5%85%AC%E5%9C%92%20%E6%9C%AD%E5%B9%8C" },
+        { time: "22:00", kind: "stay", text: "回由緣泡湯" }
       ]
     },
     {
