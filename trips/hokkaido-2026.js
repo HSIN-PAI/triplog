@@ -32,7 +32,7 @@ window.TRIP = {
   days: [
     {
       n: 1, date: "11/30", weekday: "一", place: "函館", leg: "rail", sun: { rise: "06:40", set: "16:05" },
-      title: "抵達 → 特急北斗直達函館",
+      title: "抵達 → 特急北斗直達函館，大門橫丁晚餐",
       transport: "機場搭快速 Airport 一站到南千歲，換特急北斗 18 號直達函館。全程只換一次車",
       items: [
         { time: "09:30", kind: "move", mode: "fly", from: "桃園 TPE", to: "新千歲 CTS", via: "長榮 BR116", arr: "14:05", dur: "3 小時 35 分", booked: true,
@@ -51,8 +51,9 @@ window.TRIP = {
           note: "沒劃到位不能上車。趕不上這班：下一班北斗 20 號南千歲 17:26 發、函館 20:39 到；末班 22 號南千歲 19:18 發、函館 22:31 到（2026 年 10 月時刻表）",
           url: "https://www.google.com/maps/search/?api=1&query=%E5%87%BD%E9%A4%A8%E9%A7%85" },
         { time: "19:29", kind: "stay", text: "出剪票口，JR Inn Hakodate 就在站旁，步行 1 分。先放行李再出門", url: "https://www.google.com/maps/search/?api=1&query=JR%20Inn%20%E5%87%BD%E9%A4%A8" },
-        { time: "19:45", kind: "eat",  text: "晚餐函館鹽味拉麵。店家多 20:00–21:00 打烊，出站直接去，別先回房。備選：網友推的 Soup Curry Begirama，位置與營業時間查不到，要吃請先確認", url: "https://www.google.com/maps/search/?api=1&query=%E5%87%BD%E9%A4%A8%20%E5%A1%A9%E3%83%A9%E3%83%BC%E3%83%A1%E3%83%B3%20%E5%87%BD%E9%A4%A8%E9%A7%85%E5%89%8D" },
-        { time: "20:30", kind: "lit",  text: "散步 10 分鐘到金森紅磚倉庫看夜間點燈。海上的大聖誕樹 12/1 才點燈，今晚看的是倉庫本身的燈", url: "https://www.google.com/maps/search/?api=1&query=%E9%87%91%E6%A3%AE%E8%B5%A4%E3%83%AC%E3%83%B3%E3%82%AC%E5%80%89%E5%BA%AB" }
+        { time: "19:45", kind: "eat",  text: "大門橫丁（函館ひかりの屋台）：站前步行 3 分的屋台村，26 家小店，坐吧台當晚餐兼宵夜。想吃拉麵有龍鳳（味噌、鹽味都有），不想吃麵就烤雞串、海鮮、關東煮配一杯。開到深夜，不趕", url: "https://www.google.com/maps/search/?api=1&query=%E5%87%BD%E9%A4%A8%E3%81%B2%E3%81%8B%E3%82%8A%E3%81%AE%E5%B1%8B%E5%8F%B0%20%E5%A4%A7%E9%96%80%E6%A8%AA%E4%B8%81" },
+        { time: "21:30", kind: "stay", text: "回 JR Inn 泡頂樓大眾湯，早點睡。Day 2 從 08:00 排到 22:00" },
+        { time: "",      kind: "warn", text: "金森倉庫今晚不去：海上大聖誕樹 12/1 才點燈，Day 2 下函館山後會去看，不重複" },
       ]
     },
     {
