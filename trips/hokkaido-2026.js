@@ -150,7 +150,7 @@ window.TRIP = {
     {
       n: 5, date: "12/04", weekday: "五", place: "美瑛", leg: "drive", sun: { rise: "06:35", set: "15:55" },
       title: "美瑛白天雪原，入夜連拍兩處點燈",
-      transport: "自駕。富良野 → 美瑛市街 35 公里，美瑛 → 白金（青池）20 公里，晚上再開 45 公里回富良野",
+      transport: "自駕。富良野 → 美瑛市街 35 公里，美瑛 → 白金（青池）20 公里，看完點燈 17:20 上車、天黑後開 45 公里回富良野（全程唯一夜駕，風險在道道 966 前 20 公里）",
       items: [
         { time: "08:30", kind: "move", mode: "drive", from: "Nozo Hotel 富良野", to: "美瑛", via: "國道 237 北上", note: "富良野、美瑛 12 月初積雪 20–30 公分是常態，全程壓雪路面。早上黑冰最多，橋面和路口先放慢", arr: "09:10", dur: "約 35 公里、40 分",
           board: "出發前把 Ken & Mary 之樹、七星之樹、四季彩之丘、白鬚瀑布、青池都加進導航。國道 237 筆直好開",
@@ -162,11 +162,12 @@ window.TRIP = {
           board: "15:55 日落，要在天黑前開到。沿途是上坡山路，有結冰就慢",
           alight: "停白金觀光中心停車場（免費），步行 2 分到藍河橋看瀑布。之後再開 3 分到青池停車場（冬季免費）", url: "https://www.google.com/maps/search/?api=1&query=%E7%99%BD%E9%87%91%E8%A6%B3%E5%85%89%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC%20%E7%BE%8E%E7%91%9B" },
         { time: "16:30", kind: "lit",  text: "白鬚瀑布點燈（藍水與冰柱）", url: "https://www.google.com/maps/search/?api=1&query=%E7%99%BD%E3%81%B2%E3%81%92%E3%81%AE%E6%BB%9D%20%E7%BE%8E%E7%91%9B" },
-        { time: "16:50", kind: "lit",  text: "車程 3 分鐘轉青池看夜間點燈（12 月點燈 16:30–21:00）", url: "https://www.google.com/maps/search/?api=1&query=%E7%99%BD%E9%87%91%E9%9D%92%E3%81%84%E6%B1%A0" },
-        { time: "18:00", kind: "move", mode: "drive", from: "青池", to: "Nozo Hotel 富良野", via: "道道 966 → 國道 237 南下", arr: "19:00", dur: "約 45 公里、1 小時",
-          board: "青池停車場出發，先下山回美瑛市街再接國道 237",
-          note: "夜間雪地鄉道慢慢開，鹿會衝出來。回程順路可在美瑛或上富良野吃晚餐", url: "https://www.google.com/maps/search/?api=1&query=Nozo%20Hotel%20%E5%AF%8C%E8%89%AF%E9%87%8E" },
-        { time: "19:00", kind: "stay", text: "返回 Nozo Hotel 連住第二晚", url: "https://www.google.com/maps/search/?api=1&query=Nozo%20Hotel%20%E5%AF%8C%E8%89%AF%E9%87%8E" },
+        { time: "16:50", kind: "lit",  text: "車程 3 分鐘轉青池看夜間點燈（12 月點燈 16:30–21:00）。拍到 17:15 就收，17:20 上車，不要待到路上沒車", url: "https://www.google.com/maps/search/?api=1&query=%E7%99%BD%E9%87%91%E9%9D%92%E3%81%84%E6%B1%A0" },
+        { time: "17:20", kind: "move", mode: "drive", from: "青池", to: "Nozo Hotel 富良野", via: "道道 966 → 國道 237 南下", arr: "18:20", dur: "約 45 公里、1 小時",
+          board: "青池停車場出發，先下山回美瑛市街再接國道 237。17:00–18:00 是當地人下班時段，國道 237 上有車流可以跟，比晚一點路上空蕩蕩安全",
+          note: "道道 966 白金→美瑛這 20 公里兩側是開闊農田，地吹雪會突然白茫茫，看不清就減速開雙黃燈，不要急。夜間鹿會衝出來。回程順路可在美瑛或上富良野吃晚餐", url: "https://www.google.com/maps/search/?api=1&query=Nozo%20Hotel%20%E5%AF%8C%E8%89%AF%E9%87%8E" },
+        { time: "18:20", kind: "stay", text: "返回 Nozo Hotel 連住第二晚", url: "https://www.google.com/maps/search/?api=1&query=Nozo%20Hotel%20%E5%AF%8C%E8%89%AF%E9%87%8E" },
+        { time: "",      kind: "warn", text: "天氣備案：當天中午看 tenki.jp 美瑛傍晚預報，有降雪或強風就放棄點燈——改 14:30 去白鬚瀑布、青池看白天雪景版（結冰覆雪、沒有藍色但仍漂亮），16:00 前回到富良野，整天不夜駕" },
         { time: "",      kind: "warn", text: "12 月初青池已結冰覆雪，白天看不到藍色。點燈版才是冬季唯一正確的打開方式" }
       ]
     },
