@@ -8,6 +8,13 @@
 //   days[].img           ：當天封面圖片網址，選填
 //   days[].items[].kind：move 移動 | see 景點 | eat 吃 | lit 點燈 | stay 住宿 | warn 提醒
 //   days[].items[].url ：選填，會顯示成「地圖」小連結
+//   移動（kind: move）可以寫成「乘車券」：有 from/to 就會畫成卡片，欄位都選填
+//     from / to   ：起點 → 終點            via   ：搭什麼（班次、車名）
+//     arr / dur   ：到達時間／所需時間     mode  ：fly 飛機 | rail 鐵路 | drive 自駕 | taxi | bus | walk（只影響圖示）
+//     board       ：在哪裡上車（幾樓、幾番線、怎麼走到月台），會加粗
+//     alight      ：下車後怎麼走           fare  ：票價
+//     ticket      ：怎麼買票、何時開賣（有填且未 booked 會顯示「待購票」）
+//     note        ：備案、注意事項         booked：true 顯示「已劃位」
 //   stays[].price      ：TWD，1 房 2 大人
 //   todos[].done       ：true 會打勾並劃掉
 //   順序就是陣列順序，想調整直接搬行。
@@ -18,21 +25,32 @@ window.TRIP = {
   range: "2026/11/30（一）– 12/08（二）",
   mode: "Day 1 鐵路直達函館 → Day 3–6 自駕縱走 → Day 6–9 札幌定點鐵路遊",
   travelers: 2,
-  updated: "2026-10-26（第四次修訂：併入旅伴的大黑屋訂位與 Day 2 動線）",
+  updated: "2026-10-27（第五次修訂：Day 1 交通改成乘車券格式，補月台、走法與買票方式）",
 
   days: [
     {
       n: 1, date: "11/30", weekday: "一", place: "函館", leg: "rail", sun: { rise: "06:40", set: "16:05" },
       title: "抵達 → 特急北斗直達函館",
-      transport: "JR 快速 Airport（空港→南千歲）＋ 特急北斗指定席",
+      transport: "機場搭快速 Airport 一站到南千歲，換特急北斗 18 號直達函館。全程只換一次車",
       items: [
-        { time: "14:05", kind: "move", text: "BR116 抵達新千歲機場（桃園 09:30 起飛）", url: "https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8D%83%E6%AD%B3%E7%A9%BA%E6%B8%AF" },
-        { time: "14:05", kind: "move", text: "出關領行李，抓 1～1.5 小時" },
-        { time: "16:19", kind: "move", text: "南千歲搭特急北斗（札幌 15:45 發），車程約 3 小時 10 分" },
-        { time: "19:29", kind: "stay", text: "抵達函館，入住 JR Inn Hakodate", url: "https://www.google.com/maps/search/?api=1&query=JR%20Inn%20%E5%87%BD%E9%A4%A8" },
+        { time: "09:30", kind: "move", mode: "fly", from: "桃園 TPE", to: "新千歲 CTS", via: "長榮 BR116", arr: "14:05", dur: "3 小時 35 分", booked: true,
+          alight: "降落在國際線航廈。出關、領行李抓 1～1.5 小時，目標 15:35 前走到 JR 月台",
+          url: "https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8D%83%E6%AD%B3%E7%A9%BA%E6%B8%AF" },
+        { time: "15:45", kind: "move", mode: "rail", from: "新千歲機場", to: "南千歲", via: "JR 快速 Airport", arr: "15:48", dur: "3 分，一站就下",
+          board: "國際線出關後上 2 樓，走航廈間連絡通道到國內線航廈（約 10 分），再搭手扶梯下到 B1，就是 JR 新千歲機場站。只有一座月台，1、2 番線的車全部都會停南千歲，看發車看板哪班先開就上哪班，白天約 10 分一班",
+          alight: "南千歲是下一站，上車就站門邊。到站通常停 3 番線（偶爾 2 番線）",
+          fare: "含在下面那張「新千歲機場→函館」乘車券裡，不用另外買票、不要刷 IC 卡進站",
+          note: "15:45 是目標班次，最晚 16:05 前上車都趕得上北斗" },
+        { time: "16:19", kind: "move", mode: "rail", from: "南千歲", to: "函館", via: "JR 特急北斗 18 號", arr: "19:29", dur: "3 小時 10 分，全車指定席 5 節",
+          board: "南千歲 1 番線。從 3 番線下車後，走樓梯或電梯上到剪票層，再下到對面的 1・2 番月台，在 1 番線候車。月台地上有車廂號碼，站在自己那節的位置",
+          alight: "函館站是頭端式月台（通常 7 或 8 番線），下車往前走到底就是剪票口，同一層沒有樓梯",
+          fare: "乘車券 ¥5,630 ＋ 指定席 ¥2,950 ＝ ¥8,580／人（從新千歲機場起算）",
+          ticket: "10/30（五）日本時間 10:00（台灣 09:00）えきねっと開賣，買「新千歲機場→函館」、可變更票種。付款後要在新千歲機場站的綠色窗口或指定席售票機取紙票，才能進站",
+          note: "沒劃到位不能上車。趕不上這班：下一班北斗 20 號 16:51 札幌發、函館 20:39 到；末班 22 號 18:46 札幌發、函館 22:31 到",
+          url: "https://www.google.com/maps/search/?api=1&query=%E5%8D%97%E5%8D%83%E6%AD%B3%E9%A7%85" },
+        { time: "19:29", kind: "stay", text: "出剪票口，JR Inn Hakodate 就在站旁，步行 1 分。先放行李再出門", url: "https://www.google.com/maps/search/?api=1&query=JR%20Inn%20%E5%87%BD%E9%A4%A8" },
         { time: "19:45", kind: "eat",  text: "晚餐函館鹽味拉麵。店家多 20:00–21:00 打烊，出站直接去，別先回房。備選：網友推的 Soup Curry Begirama，位置與營業時間查不到，要吃請先確認" },
-        { time: "20:30", kind: "lit",  text: "散步 10 分鐘到金森紅磚倉庫看夜間點燈", url: "https://www.google.com/maps/search/?api=1&query=%E9%87%91%E6%A3%AE%E8%B5%A4%E3%83%AC%E3%83%B3%E3%82%AC%E5%80%89%E5%BA%AB" },
-        { time: "",      kind: "warn", text: "北斗已全車指定席、無自由席。買可變更票種，班機延誤時才有退路。趕不上這班，下一班到函館 20:39、末班 22:31" }
+        { time: "20:30", kind: "lit",  text: "散步 10 分鐘到金森紅磚倉庫看夜間點燈", url: "https://www.google.com/maps/search/?api=1&query=%E9%87%91%E6%A3%AE%E8%B5%A4%E3%83%AC%E3%83%B3%E3%82%AC%E5%80%89%E5%BA%AB" }
       ]
     },
     {

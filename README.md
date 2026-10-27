@@ -50,6 +50,12 @@ window.TRIP = {
         { time: "14:05", kind: "move", text: "做什麼", url: "https://maps.google.com/?cid=…" }
         //  kind：move 移動 | see 景點 | eat 吃 | lit 點燈 | stay 住宿 | warn 提醒
         //  url 選填，會變成「地圖 ↗」小連結
+        ,
+        // 移動也可以寫成「乘車券」：有 from/to 就畫成卡片，其他欄位全選填
+        { time: "16:19", kind: "move", mode: "rail", from: "南千歲", to: "函館", via: "JR 特急北斗 18 號", arr: "19:29", dur: "3 小時 10 分",
+          board: "在哪上車：幾樓、幾番線、怎麼走到月台（會加粗）", alight: "下車後怎麼走",
+          fare: "票價", ticket: "怎麼買、何時開賣（未 booked 時顯示「待購票」）", note: "備案", booked: false }
+        //  mode：fly 飛機 | rail 鐵路 | drive 自駕 | taxi | bus | walk，只影響圖示
       ] }
   ],
   stays: [ { name, checkin, checkout, nights, price, area, note, url } ],   // price 單位 TWD

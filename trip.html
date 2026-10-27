@@ -140,6 +140,23 @@
     .it.warn .body { background: var(--alert-soft); border-radius: 9px; padding: 6px 10px; margin-top: 2px; border-left: 3px solid var(--alert); }
     .it.warn .time { opacity: .35; }
 
+    /* 移動：乘車券式卡片（items[] 有 from/to 的 move 項目） */
+    .ride { margin-top: 3px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface2); overflow: hidden; }
+    .ride .rhead { display: flex; align-items: center; justify-content: space-between; gap: 6px 10px; padding: 8px 12px 4px; flex-wrap: wrap; }
+    .ride .route { font-weight: 700; font-size: .96rem; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+    .ride .route .arrow { color: var(--accent); font-weight: 400; }
+    .ride .via { font-size: .72rem; padding: 1px 8px; border-radius: 999px; white-space: nowrap; background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent); font-weight: 500; }
+    .ride .rtime { display: flex; align-items: baseline; gap: 8px; padding: 0 12px 8px; font-family: var(--mono); font-size: .78rem; font-variant-numeric: tabular-nums; flex-wrap: wrap; }
+    .ride .rtime b { font-size: .98rem; font-weight: 500; color: var(--fg); }
+    .ride .rtime .arrow { color: var(--accent); }
+    .ride .rtime .dur { color: var(--muted); font-size: .72rem; font-family: var(--sans); }
+    .ride dl { margin: 0; padding: 7px 12px 9px; border-top: 1px dashed var(--line); display: grid; grid-template-columns: max-content 1fr; gap: 4px 10px; font-size: .84rem; }
+    .ride dt { color: var(--faint); font-size: .7rem; padding-top: 3px; white-space: nowrap; letter-spacing: .04em; }
+    .ride dd { margin: 0; }
+    .ride dd.hl { color: var(--fg); font-weight: 500; }
+    .ride .map { margin-left: 0; }
+    .ticket { display: inline-block; font-size: .64rem; padding: 1px 7px; border-radius: 999px; background: var(--warm-soft); color: var(--warm); letter-spacing: .06em; font-weight: 500; }
+
     /* ---------- 住宿 ---------- */
     .tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
     table { border-collapse: collapse; width: 100%; min-width: 620px; font-size: .86rem; }
@@ -307,13 +324,17 @@
       eat: "M2.5 7.5h11a5.5 5.5 0 0 1-11 0ZM5 13.5h6M3 4.5l1-1.5M8 4V2.5M13 4.5l-1-1.5",
       lit: "M8 2a4 4 0 0 0-2.5 7.1V11h5V9.1A4 4 0 0 0 8 2ZM6.5 13h3M7 14.5h2",
       stay: "M2.5 12.5v-7M2.5 10h11v2.5M13.5 10V8a1.5 1.5 0 0 0-1.5-1.5H7V10M3.5 7.5A1.5 1.5 0 1 1 6 6.5",
-      warn: "M8 2.5 14 13H2L8 2.5ZM8 6.5v3M8 11.2v.01"
+      warn: "M8 2.5 14 13H2L8 2.5ZM8 6.5v3M8 11.2v.01",
+      fly: "M2.5 9.5 7 8l2.5-5h2L10 8l3.5 1.5-1 1-3-.5-1.5 3.5h-1.5L7 10.5l-3 .5-1.5-1.5Z",
+      walk: "M9 2.5a1 1 0 1 0 0 .01M6.5 14l1.5-4 2 1.5V14M7 7.5 5.5 10.5M7 7.5l2.5 1 1.5 2.5M7 7.5l-2 1-1 2"
     };
-    function iconKind(k, leg) {
+    var MODE_ICON = { fly: "fly", walk: "walk", drive: "drive", taxi: "drive", rail: "move", bus: "move" };
+    function iconKind(k, leg, mode) {
       var ns = "http://www.w3.org/2000/svg", s = document.createElementNS(ns, "svg");
       s.setAttribute("viewBox", "0 0 16 16"); s.setAttribute("fill", "none"); s.setAttribute("stroke", "currentColor");
       s.setAttribute("stroke-width", "1.6"); s.setAttribute("stroke-linecap", "round"); s.setAttribute("stroke-linejoin", "round");
-      var p = document.createElementNS(ns, "path"); p.setAttribute("d", ICONS[k === "move" && leg === "drive" ? "drive" : k] || ICONS.see); s.appendChild(p); return s;
+      var key = k === "move" ? (MODE_ICON[mode] || (leg === "drive" ? "drive" : "move")) : k;
+      var p = document.createElementNS(ns, "path"); p.setAttribute("d", ICONS[key] || ICONS.see); s.appendChild(p); return s;
     }
     function mins(t) { var m = /^(\d{1,2}):(\d{2})$/.exec(t || ""); return m ? Number(m[1]) * 60 + Number(m[2]) : null; }
 
@@ -370,6 +391,35 @@
     }
 
     /* ---------- 每日 ---------- */
+    function isRide(it) { return (it.kind || "see") === "move" && (it.from || it.to); }
+    function rideLabel(it) { return (it.from || "") + " → " + (it.to || "") + (it.via ? "（" + it.via + "）" : ""); }
+    // 乘車券卡片：from/to/via/arr/dur 排頭，board/alight/fare/ticket/note 列成表
+    function rideNode(it) {
+      var r = el("div", "ride");
+      var h = el("div", "rhead"), route = el("div", "route");
+      route.appendChild(el("span", null, it.from || "")); route.appendChild(el("span", "arrow", "→")); route.appendChild(el("span", null, it.to || ""));
+      h.appendChild(route);
+      var right = el("div", "kindrow");
+      if (it.via) right.appendChild(el("span", "via", it.via));
+      if (it.url) { var a = el("a", "map", "地圖 ↗"); a.href = it.url; a.target = "_blank"; a.rel = "noopener"; right.appendChild(a); }
+      h.appendChild(right); r.appendChild(h);
+      if (it.time || it.arr || it.dur) {
+        var t = el("div", "rtime");
+        if (it.time) t.appendChild(el("b", null, it.time));
+        if (it.arr) { t.appendChild(el("span", "arrow", "→")); t.appendChild(el("b", null, it.arr)); }
+        if (it.dur) t.appendChild(el("span", "dur", it.dur));
+        r.appendChild(t);
+      }
+      var rows = [["上車", it.board, true], ["下車", it.alight, false], ["票價", it.fare, false], ["買票", it.ticket, false], ["備註", it.note, false]]
+        .filter(function (x) { return x[1]; });
+      if (rows.length) {
+        var dl = el("dl");
+        rows.forEach(function (x) { dl.appendChild(el("dt", null, x[0])); dl.appendChild(el("dd", x[2] ? "hl" : null, x[1])); });
+        r.appendChild(dl);
+      }
+      return r;
+    }
+
     function renderDays(T) {
       var host = $("days"); host.innerHTML = "";
       var days = T.days || [];
@@ -396,7 +446,7 @@
           (d.items || []).forEach(function (it) {
             var m = mins(it.time); if (m == null) return;
             var pt = el("span", "pt k-" + (it.kind || "see") + (it.kind === "lit" ? " lit" : "")); pt.style.left = Math.min(100, Math.max(0, (m - T0) / span * 100)) + "%";
-            pt.title = (it.time || "") + " " + (it.text || ""); track.appendChild(pt);
+            pt.title = (it.time || "") + " " + (isRide(it) ? rideLabel(it) : (it.text || "")); track.appendChild(pt);
           });
           bar.appendChild(track);
           var ticks = el("div", "ticks"); ticks.appendChild(el("span", null, "06:00")); ticks.appendChild(el("span", null, "12:00"));
@@ -409,14 +459,23 @@
           var k = it.kind || "see";
           var li = el("li", "it k-" + k + (k === "warn" ? " warn" : "") + (k === "lit" ? " lit" : ""));
           li.appendChild(el("div", "time", it.time || ""));
-          var tl = el("div", "tl"), ic = el("i"); ic.appendChild(iconKind(k, d.leg)); tl.appendChild(ic); li.appendChild(tl);
+          var tl = el("div", "tl"), ic = el("i"); ic.appendChild(iconKind(k, d.leg, it.mode)); tl.appendChild(ic); li.appendChild(tl);
           var body = el("div", "body");
           var kr = el("div", "kindrow"); kr.appendChild(el("span", "kind", KINDS[k] || "景點"));
-          if (/✅|已訂/.test(it.text || "")) kr.appendChild(el("span", "booked", "已訂位"));
-          body.appendChild(kr);
-          var tx = el("div", "text", it.text || "");
-          if (it.url) { var a = el("a", "map", "地圖 ↗"); a.href = it.url; a.target = "_blank"; a.rel = "noopener"; tx.appendChild(a); }
-          body.appendChild(tx); li.appendChild(body); ul.appendChild(li);
+          if (isRide(it)) {
+            if (it.booked) kr.appendChild(el("span", "booked", "已劃位"));
+            else if (it.ticket) kr.appendChild(el("span", "ticket", "待購票"));
+            body.appendChild(kr);
+            if (it.text) body.appendChild(el("div", "text", it.text));
+            body.appendChild(rideNode(it));
+          } else {
+            if (/✅|已訂/.test(it.text || "")) kr.appendChild(el("span", "booked", "已訂位"));
+            body.appendChild(kr);
+            var tx = el("div", "text", it.text || "");
+            if (it.url) { var a = el("a", "map", "地圖 ↗"); a.href = it.url; a.target = "_blank"; a.rel = "noopener"; tx.appendChild(a); }
+            body.appendChild(tx);
+          }
+          li.appendChild(body); ul.appendChild(li);
         });
         card.appendChild(ul); host.appendChild(card);
       });
