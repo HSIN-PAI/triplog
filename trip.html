@@ -154,7 +154,8 @@
     .ride dt { color: var(--faint); font-size: .7rem; padding-top: 3px; white-space: nowrap; letter-spacing: .04em; }
     .ride dd { margin: 0; }
     .ride dd.hl { color: var(--fg); font-weight: 500; }
-    .ride .map { margin-left: 0; }
+    .ride .rhead .map { margin-left: 0; }
+    .ride dd .map { margin-left: 6px; font-weight: 400; }
     .ticket { display: inline-block; font-size: .64rem; padding: 1px 7px; border-radius: 999px; background: var(--warm-soft); color: var(--warm); letter-spacing: .06em; font-weight: 500; }
 
     /* ---------- 住宿 ---------- */
@@ -401,7 +402,7 @@
       h.appendChild(route);
       var right = el("div", "kindrow");
       if (it.via) right.appendChild(el("span", "via", it.via));
-      if (it.url) { var a = el("a", "map", "地圖 ↗"); a.href = it.url; a.target = "_blank"; a.rel = "noopener"; right.appendChild(a); }
+      if (it.url) { var a = el("a", "map", "目的地 ↗"); a.href = it.url; a.target = "_blank"; a.rel = "noopener"; right.appendChild(a); }
       h.appendChild(right); r.appendChild(h);
       if (it.time || it.arr || it.dur) {
         var t = el("div", "rtime");
@@ -414,7 +415,11 @@
         .filter(function (x) { return x[1]; });
       if (rows.length) {
         var dl = el("dl");
-        rows.forEach(function (x) { dl.appendChild(el("dt", null, x[0])); dl.appendChild(el("dd", x[2] ? "hl" : null, x[1])); });
+        rows.forEach(function (x) {
+          dl.appendChild(el("dt", null, x[0])); var dd = el("dd", x[2] ? "hl" : null, x[1]);
+          if (x[2] && it.boardUrl) { var b = el("a", "map", "上車處 ↗"); b.href = it.boardUrl; b.target = "_blank"; b.rel = "noopener"; dd.appendChild(b); }
+          dl.appendChild(dd);
+        });
         r.appendChild(dl);
       }
       return r;
