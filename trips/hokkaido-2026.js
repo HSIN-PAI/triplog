@@ -158,6 +158,7 @@ window.TRIP = {
         { time: "09:10", kind: "see",  text: "美瑛冬日巡禮：Ken & Mary 之樹、七星之樹", url: "https://www.google.com/maps/search/?api=1&query=%E3%82%B1%E3%83%B3%E3%81%A8%E3%83%A1%E3%83%AA%E3%83%BC%E3%81%AE%E6%9C%A8%20%E7%BE%8E%E7%91%9B" },
         { time: "12:00", kind: "eat",  text: "美瑛市區午餐", url: "https://www.google.com/maps/search/?api=1&query=%E7%BE%8E%E7%91%9B%E9%A7%85" },
         { time: "13:30", kind: "see",  text: "四季彩之丘廣袤雪原（冬季有雪上摩托車等活動）", url: "https://www.google.com/maps/search/?api=1&query=%E5%9B%9B%E5%AD%A3%E5%BD%A9%E3%81%AE%E4%B8%98%20%E7%BE%8E%E7%91%9B" },
+        { time: "14:45", kind: "see",  text: "聖誕樹之木（クリスマスツリーの木）：美馬牛雪原上孤獨一棵雲杉，離四季彩之丘 5 分鐘車程，下午側光最好拍。沒有正式停車場，只停路邊指定空地、不下田", url: "https://www.google.com/maps/search/?api=1&query=%E3%82%AF%E3%83%AA%E3%82%B9%E3%83%9E%E3%82%B9%E3%83%84%E3%83%AA%E3%83%BC%E3%81%AE%E6%9C%A8%20%E7%BE%8E%E7%91%9B" },
         { time: "15:45", kind: "move", mode: "drive", from: "美瑛市街", to: "白金 白鬚瀑布", via: "道道 966 往白金溫泉", note: "道道 966 是觀光路線有定期除雪，但彎多、壓雪，不超車、天黑前到", arr: "16:15", dur: "約 20 公里、30 分",
           board: "15:55 日落，要在天黑前開到。沿途是上坡山路，有結冰就慢",
           alight: "停白金觀光中心停車場（免費），步行 2 分到藍河橋看瀑布。之後再開 3 分到青池停車場（冬季免費）", url: "https://www.google.com/maps/search/?api=1&query=%E7%99%BD%E9%87%91%E8%A6%B3%E5%85%89%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC%20%E7%BE%8E%E7%91%9B" },
