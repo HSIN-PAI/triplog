@@ -248,7 +248,7 @@ window.TRIP = {
           fare: "¥250／人", url: "https://www.google.com/maps/search/?api=1&query=%E5%9C%B0%E4%B8%8B%E9%89%84%20%E3%81%95%E3%81%A3%E3%81%BD%E3%82%8D%E9%A7%85", boardUrl: "https://www.google.com/maps/search/?api=1&query=%E5%9C%B0%E4%B8%8B%E9%89%84%20%E5%86%86%E5%B1%B1%E5%85%AC%E5%9C%92%E9%A7%85" },
         { time: "15:00", kind: "see",  text: "札幌車站商圈最後大採購。伴手禮今天買齊，Day 9 機場只補貨", url: "https://www.google.com/maps/search/?api=1&query=%E6%9C%AD%E5%B9%8C%E3%82%B9%E3%83%86%E3%83%A9%E3%83%97%E3%83%AC%E3%82%A4%E3%82%B9" },
         { time: "18:00", kind: "eat",  text: "串燒居酒屋或蟹料理（羊肉已在 Day 2 大黑屋吃過，避免重複）", url: "https://www.google.com/maps/search/?api=1&query=%E3%81%99%E3%81%99%E3%81%8D%E3%81%AE" },
-        { time: "19:30", kind: "lit",  text: "大通公園白色燈樹節＋慕尼黑聖誕市集（往年 11/21–12/25）", url: "https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E9%80%9A%E5%85%AC%E5%9C%92%20%E6%9C%AD%E5%B9%8C" },
+        { time: "19:30", kind: "lit",  text: "大通公園白色燈樹節＋慕尼黑聖誕市集（2026 大通會場 11/20–12/25；駅前通、南一条通會場亮到 3/14）。由緣就在公園旁，Day 6、7 晚上順路也看得到", url: "https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E9%80%9A%E5%85%AC%E5%9C%92%20%E6%9C%AD%E5%B9%8C" },
         { time: "21:00", kind: "stay", text: "回房整理行李", url: "https://www.google.com/maps/search/?api=1&query=ONSEN%20RYOKAN%20%E7%94%B1%E7%B8%81%20%E6%9C%AD%E5%B9%8C" }
       ]
     },
@@ -303,7 +303,7 @@ window.TRIP = {
     { cat: "出發前再確認", text: "五稜星の夢 2026-27 點燈期間與五稜郭塔營業時間", done: false },
     { cat: "出發前再確認", text: "青池・白鬚瀑布點燈時間（往年 12 月 16:30–21:00）", done: false },
     { cat: "出發前再確認", text: "洞爺湖溫泉燈飾隧道期間（往年 11/1–2/28、17:00–22:00）", done: false },
-    { cat: "出發前再確認", text: "札幌白色燈樹節大通會場檔期（往年 11/21–12/25）", done: false },
+    { cat: "出發前再確認", text: "札幌白色燈樹節大通會場 2026/11/20–12/25，12/7 在檔期內", done: true },
     { cat: "出發前再確認", text: "旭山動物園冬季開園時間（往年 10:30–15:30）", done: false },
     { cat: "出發前再確認", text: "TOMAMU 霧氷テラス 12/1 起營業：到官網確認纜車冬季每日時間，往返 ¥2,500／人", done: false },
     { cat: "出發前再確認", text: "出發前一週看 tenki.jp 10 日預報，重點 12/3 道東道占冠段、12/5 道東道占冠～千歲段（封路就改國道 237 → 滝川 → 道央道北線，跳過 TOMAMU 與支笏湖）。每天開車前看ドラとら（通行止め）與北の道ナビ（路面攝影機）", done: false },
