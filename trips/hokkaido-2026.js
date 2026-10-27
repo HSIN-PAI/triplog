@@ -52,7 +52,7 @@ window.TRIP = {
           url: "https://www.google.com/maps/search/?api=1&query=%E5%87%BD%E9%A4%A8%E9%A7%85" },
         { time: "19:29", kind: "stay", text: "出剪票口，JR Inn Hakodate 就在站旁，步行 1 分。先放行李再出門", url: "https://www.google.com/maps/search/?api=1&query=JR%20Inn%20%E5%87%BD%E9%A4%A8" },
         { time: "19:45", kind: "eat",  text: "晚餐函館鹽味拉麵。店家多 20:00–21:00 打烊，出站直接去，別先回房。備選：網友推的 Soup Curry Begirama，位置與營業時間查不到，要吃請先確認", url: "https://www.google.com/maps/search/?api=1&query=%E5%87%BD%E9%A4%A8%20%E5%A1%A9%E3%83%A9%E3%83%BC%E3%83%A1%E3%83%B3%20%E5%87%BD%E9%A4%A8%E9%A7%85%E5%89%8D" },
-        { time: "20:30", kind: "lit",  text: "散步 10 分鐘到金森紅磚倉庫看夜間點燈", url: "https://www.google.com/maps/search/?api=1&query=%E9%87%91%E6%A3%AE%E8%B5%A4%E3%83%AC%E3%83%B3%E3%82%AC%E5%80%89%E5%BA%AB" }
+        { time: "20:30", kind: "lit",  text: "散步 10 分鐘到金森紅磚倉庫看夜間點燈。海上的大聖誕樹 12/1 才點燈，今晚看的是倉庫本身的燈", url: "https://www.google.com/maps/search/?api=1&query=%E9%87%91%E6%A3%AE%E8%B5%A4%E3%83%AC%E3%83%B3%E3%82%AC%E5%80%89%E5%BA%AB" }
       ]
     },
     {
@@ -101,7 +101,10 @@ window.TRIP = {
           fare: "¥250，刷 Suica",
           note: "⚠️ 19:45 還沒停好車就別搭市電，從飯店直接叫計程車到「函館山ロープウェイ山麓駅」，約 10 分、¥1,200 上下", url: "https://www.google.com/maps/search/?api=1&query=%E5%87%BD%E9%A4%A8%E5%B8%82%E9%9B%BB%20%E5%8D%81%E5%AD%97%E8%A1%97%E5%81%9C%E7%95%99%E5%A0%B4", boardUrl: "https://www.google.com/maps/search/?api=1&query=%E5%87%BD%E9%A4%A8%E5%B8%82%E9%9B%BB%20%E5%87%BD%E9%A4%A8%E9%A7%85%E5%89%8D%E5%81%9C%E7%95%99%E5%A0%B4" },
         { time: "20:15", kind: "lit",  text: "函館山纜車上山看百萬夜景，20:15–21:00。往復 ¥1,800／人，IC 卡可付。末班上行 20:50、末班下行 21:00，約 20:00 到山麓站，有 50 分緩衝；山頂約 40 分只看景拍照，20:00 後人潮已散比較好拍", url: "https://www.google.com/maps/search/?api=1&query=%E5%87%BD%E9%A4%A8%E5%B1%B1%E3%83%AD%E3%83%BC%E3%83%97%E3%82%A6%E3%82%A7%E3%82%A4%20%E5%B1%B1%E9%BA%93%E9%A7%85" },
-        { time: "21:30", kind: "stay", text: "回 JR Inn 泡頂樓大眾湯", url: "https://www.google.com/maps/search/?api=1&query=JR%20Inn%20%E5%87%BD%E9%A4%A8" },
+        { time: "21:05", kind: "move", mode: "walk", from: "函館山纜車 山麓站", to: "金森紅磚倉庫前", via: "下坡走十字街到灣區", arr: "21:15", dur: "約 10 分" },
+        { time: "21:15", kind: "lit",  text: "はこだてクリスマスファンタジー：赤レンガ倉庫前海上的大聖誕樹，點燈到 22:00（12/1 是開幕首日）。看到 21:45 就走", url: "https://www.google.com/maps/search/?api=1&query=%E3%81%AF%E3%81%93%E3%81%A0%E3%81%A6%E3%82%AF%E3%83%AA%E3%82%B9%E3%83%9E%E3%82%B9%E3%83%95%E3%82%A1%E3%83%B3%E3%82%BF%E3%82%B8%E3%83%BC%20%E9%87%91%E6%A3%AE%E8%B5%A4%E3%83%AC%E3%83%B3%E3%82%AC%E5%80%89%E5%BA%AB" },
+        { time: "21:45", kind: "move", mode: "walk", from: "金森紅磚倉庫", to: "JR Inn 函館", via: "沿海岸步行，或十字街搭市電到函館駅前", arr: "22:00", dur: "約 15 分" },
+        { time: "22:00", kind: "stay", text: "回 JR Inn 泡頂樓大眾湯" },
         { time: "",      kind: "warn", text: "冬季函館山登山車道封閉、登山巴士停駛，只能搭纜車。十字街站步行 10 分上坡，雪天穿防滑鞋" }
       ]
     },
@@ -315,6 +318,6 @@ window.TRIP = {
     { by: "Claude", at: "2026/10/26",
       text: "✅ 已解決：旅伴在第四次修訂把 Day 2 改成由西往東（朝市→元町→灣區午餐→修道院→五稜郭塔→大黑屋→函館山），不再走回頭路，並訂了大黑屋 18:00 的位子。原本提的動線問題就此結案。" },
     { by: "Claude", at: "2026/10/26",
-      text: "還沒排進去：はこだてクリスマスファンタジー（金森倉庫前的海上聖誕樹）往年 12/1 開幕，剛好是 Day 2 那晚，開幕日通常有煙火。要排的話建議放在函館山下山之後。" }
+      text: "✅ 已排進 Day 2 21:15（下函館山後）：はこだてクリスマスファンタジー（金森倉庫前的海上聖誕樹）往年 12/1 開幕，剛好是 Day 2 那晚，開幕日通常有煙火。要排的話建議放在函館山下山之後。" }
   ]
 };
