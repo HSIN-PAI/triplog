@@ -464,7 +464,7 @@
           var kr = el("div", "kindrow"); kr.appendChild(el("span", "kind", KINDS[k] || "景點"));
           if (isRide(it)) {
             if (it.booked) kr.appendChild(el("span", "booked", "已劃位"));
-            else if (it.ticket) kr.appendChild(el("span", "ticket", "待購票"));
+            else if (it.ticket) kr.appendChild(el("span", "ticket", "待訂"));
             body.appendChild(kr);
             if (it.text) body.appendChild(el("div", "text", it.text));
             body.appendChild(rideNode(it));
