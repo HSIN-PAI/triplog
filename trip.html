@@ -56,6 +56,16 @@
     .brand h1 { font-family: var(--serif); font-weight: 700; font-size: clamp(1.9rem, 5vw, 2.6rem); line-height: 1.15; margin: 0; letter-spacing: .02em; text-wrap: balance; }
     .brand .range { display: inline-block; margin-top: 6px; font-family: var(--mono); font-size: .8rem; color: var(--hero-muted); font-variant-numeric: tabular-nums; letter-spacing: .04em; }
     .modeline { margin-top: 8px; font-size: .84rem; color: var(--hero-muted); max-width: 60ch; }
+    /* 倒數：出發前倒數天數、旅程中顯示第幾天、結束後顯示幾天前 */
+    .countdown { display: flex; align-items: center; gap: 14px; margin-top: 16px; padding: 10px 16px; border-radius: 14px; width: fit-content; max-width: 100%;
+      background: color-mix(in srgb, var(--hero-fg) 9%, transparent); border: 1px solid color-mix(in srgb, var(--hero-fg) 18%, transparent); }
+    .countdown .n { font-family: var(--serif); font-size: 2.3rem; line-height: 1; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .countdown .n small { font-family: var(--sans); font-size: .78rem; margin-left: 3px; color: var(--hero-muted); }
+    .countdown .lbl { font-size: .82rem; color: var(--hero-muted); line-height: 1.45; }
+    .countdown .lbl b { display: block; color: var(--hero-fg); font-weight: 600; }
+    .countdown .lbl a { color: var(--hero-fg); }
+    .day.today { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent); }
+    .todaytag { display: inline-block; font-size: .64rem; padding: 1px 8px; border-radius: 999px; background: var(--accent); color: var(--surface); margin-left: 6px; vertical-align: middle; letter-spacing: .06em; }
 
     /* 路線圖：一站一天，線段顏色＝交通型態 */
     .route { position: relative; margin-top: 26px; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; }
@@ -187,6 +197,46 @@
     tfoot td.num { font-size: 1rem; }
     .staycards { display: none; }
 
+    /* ---------- 費用 ---------- */
+    .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 14px; }
+    .kpi { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; }
+    .kpi .k { font-family: var(--mono); font-size: .64rem; letter-spacing: .12em; color: var(--faint); }
+    .kpi .v { font-family: var(--serif); font-size: 1.5rem; line-height: 1.2; font-variant-numeric: tabular-nums; margin-top: 2px; }
+    .kpi .s { font-size: .74rem; color: var(--muted); }
+    .costwrap { border: 1px solid var(--line); border-radius: 16px; background: var(--surface); overflow: hidden; }
+    .costwrap table { min-width: 0; }
+    .costwrap td .sub { font-size: .74rem; color: var(--muted); margin-top: 2px; }
+    .costwrap td.num .twd { display: block; font-size: .72rem; color: var(--muted); font-weight: 400; }
+    .st { display: inline-block; font-size: .64rem; padding: 1px 7px; border-radius: 999px; white-space: nowrap; }
+    .st-paid { background: color-mix(in srgb, var(--ok) 16%, transparent); color: var(--ok); }
+    .st-due { background: var(--warm-soft); color: var(--warm); }
+    .st-onsite { background: var(--accent-soft); color: var(--accent); }
+    .st-tbd { background: var(--sunken); color: var(--muted); }
+    .cats { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 0; }
+    .cats span { font-size: .76rem; padding: 3px 10px; border-radius: 999px; background: var(--surface2); border: 1px solid var(--line); font-variant-numeric: tabular-nums; }
+    .cats span b { font-family: var(--mono); font-weight: 500; margin-left: 4px; }
+    /* 旅途記帳：存在瀏覽器 localStorage */
+    .spend { margin-top: 24px; }
+    .spend h3 { font-family: var(--serif); font-size: 1.1rem; margin: 0 0 4px; }
+    .spend .hint { font-size: .76rem; color: var(--muted); margin: 0 0 10px; }
+    .sform { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px; }
+    .sform input, .sform select, .sform button, .stools button, .stools textarea { font: inherit; font-size: .88rem; color: var(--fg); background: var(--surface2); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; min-width: 0; }
+    .sform .wide { grid-column: 1 / -1; }
+    .sform button, .stools button { background: var(--accent); color: var(--surface); border-color: var(--accent); font-weight: 600; cursor: pointer; }
+    .stools button.ghost { background: var(--surface2); color: var(--fg); border-color: var(--line); font-weight: 500; }
+    .slist { margin-top: 12px; display: flex; flex-direction: column; gap: 10px; }
+    .sday { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+    .sday h4 { margin: 0; padding: 8px 12px; font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; color: var(--faint); font-weight: 500; background: var(--surface2); display: flex; justify-content: space-between; }
+    .srow { display: grid; grid-template-columns: 1fr auto auto; gap: 8px 12px; align-items: center; padding: 8px 12px; border-top: 1px solid var(--line); font-size: .88rem; }
+    .srow .m { font-size: .72rem; color: var(--muted); }
+    .srow .a { font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .srow .x { background: none; border: 0; color: var(--faint); font-size: 1.1rem; cursor: pointer; padding: 0 4px; line-height: 1; }
+    .stools { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; align-items: center; }
+    .stools .msg { font-size: .76rem; color: var(--muted); }
+    .stools textarea { width: 100%; min-height: 90px; font-family: var(--mono); font-size: .74rem; }
+    .stotal { display: flex; justify-content: space-between; gap: 6px 14px; flex-wrap: wrap; margin-top: 10px; font-size: .88rem; color: var(--muted); }
+    .stotal b { font-family: var(--mono); font-variant-numeric: tabular-nums; color: var(--fg); }
+
     /* ---------- 待辦 ---------- */
     .progress { display: flex; align-items: center; gap: 10px; font-size: .78rem; color: var(--muted); }
     .progress .bar { width: 140px; height: 6px; border-radius: 999px; background: var(--sunken); overflow: hidden; }
@@ -245,6 +295,7 @@
         <span class="range" id="trip-range"></span>
       </div>
       <div class="modeline" id="trip-mode" hidden></div>
+      <div class="countdown" id="countdown" hidden></div>
       <nav class="route" aria-label="旅程路線"><ol id="route"></ol></nav>
       <div class="legend" id="legend" hidden>
         <span class="leg-rail"><i></i>鐵路</span><span class="leg-drive"><i></i>自駕</span><span class="leg-city"><i></i>市區</span>
@@ -260,8 +311,13 @@
       <div class="days" id="days"><div class="empty"><b>行程載入中</b></div></div>
     </section>
     <section id="sec-stay">
-      <div class="shead"><div><span class="eyebrow">STAYS</span><h2>住宿與費用</h2></div><span class="sub">金額為 1 房 2 大人的房價（TWD）</span></div>
+      <div class="shead"><div><span class="eyebrow">STAYS</span><h2>住宿</h2></div><span class="sub">金額為 1 房 2 大人的房價（TWD）</span></div>
       <div id="stays"></div>
+    </section>
+    <section id="sec-cost">
+      <div class="shead"><div><span class="eyebrow">BUDGET</span><h2>費用</h2></div><span class="sub" id="cost-sub"></span></div>
+      <div id="costs"></div>
+      <div class="spend" id="spend"></div>
     </section>
     <section id="sec-todo">
       <div class="shead"><div><span class="eyebrow">CHECKLIST</span><h2>出發前待辦</h2></div><div class="progress" id="todo-progress" hidden><div class="bar"><i id="todo-bar"></i></div><span id="todo-count"></span></div></div>
@@ -357,7 +413,7 @@
       $("trip-title").textContent = T.title;
       $("trip-range").textContent = T.range || "";
       if (T.mode) { $("trip-mode").textContent = T.mode; $("trip-mode").hidden = false; }
-      renderDays(T); renderStays(T); renderTodos(T); renderNotes(T);
+      renderCountdown(T); renderDays(T); renderStays(T); renderCosts(T); renderSpend(T); renderTodos(T); renderNotes(T);
       renderRoute(T); renderRail(T);   // 導覽最後建：要觀察 #day-N，卡片得先存在
       $("foot").innerHTML = "";
       $("foot").appendChild(document.createTextNode("資料檔："));
@@ -387,7 +443,7 @@
     function renderRail(T) {
       var rail = $("rail"); rail.innerHTML = "";
       (T.days || []).forEach(function (d) { var a = el("a", null, "D" + d.n); a.href = "#day-" + d.n; rail.appendChild(a); });
-      [["sec-stay", "住宿"], ["sec-todo", "待辦"], ["sec-talk", "討論"]].forEach(function (x) { var a = el("a", null, x[1]); a.href = "#" + x[0]; rail.appendChild(a); });
+      [["sec-stay", "住宿"], ["sec-cost", "費用"], ["sec-todo", "待辦"], ["sec-talk", "討論"]].forEach(function (x) { var a = el("a", null, x[1]); a.href = "#" + x[0]; rail.appendChild(a); });
       var links = rail.querySelectorAll("a");
       var targets = Array.prototype.map.call(links, function (a) { return document.getElementById(a.getAttribute("href").slice(1)); });
       var stops = document.querySelectorAll(".stop");
@@ -444,13 +500,15 @@
       var days = T.days || [];
       $("plan-sub").textContent = days.length ? days.length + " 天" : "";
       if (!days.length) { var e = el("div", "empty"); e.appendChild(el("b", null, "還沒排行程")); host.appendChild(e); return; }
+      var todayN = tripDayN(T);
       days.forEach(function (d) {
-        var card = el("article", "day" + (d.leg ? " leg-" + d.leg : "")); card.id = "day-" + d.n;
+        var card = el("article", "day" + (d.leg ? " leg-" + d.leg : "") + (d.n === todayN ? " today" : "")); card.id = "day-" + d.n;
         var head = el("div", "dhead");
         var num = el("div", "dnum"); num.appendChild(el("small", null, "DAY")); num.appendChild(document.createTextNode(String(d.n))); head.appendChild(num);
         var meta = el("div", "dmeta");
         var dd = el("div", "ddate"); dd.appendChild(el("span", null, (d.date || "") + (d.weekday ? "（" + d.weekday + "）" : "")));
         if (d.place) dd.appendChild(el("span", "place", d.place));
+        if (d.n === todayN) dd.appendChild(el("span", "todaytag", "今天"));
         meta.appendChild(dd);
         meta.appendChild(el("div", "dtitle", d.title || ""));
         if (d.transport) { var tr = el("div", "dtrans"); tr.appendChild(iconTransit(d.leg)); tr.appendChild(el("span", null, d.transport)); meta.appendChild(tr); }
@@ -559,6 +617,148 @@
       tot.appendChild(el("div", "name", "合計 " + totN + " 晚"));
       var tp = el("div", "price"); tp.appendChild(el("b", null, fmt(totP))); tp.appendChild(el("small", null, "每晚 " + (totN ? fmt(Math.round(totP / totN)) : "—") + " · 每人 " + fmt(Math.round(totP / ppl)))); tot.appendChild(tp);
       cards.appendChild(tot); host.appendChild(cards);
+    }
+
+    /* ---------- 倒數 ---------- */
+    function parseISO(s) { var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s || ""); return m ? new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3])) : null; }
+    function todayLocal() { var d = new Date(); return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
+    function dayDiff(a, b) { return Math.round((b - a) / 86400000); }
+    // 旅程中回傳今天是第幾天（1 起算），不在旅程期間回傳 null
+    function tripDayN(T) { var s = parseISO(T.start); if (!s) return null; var n = dayDiff(s, todayLocal()) + 1; return (n >= 1 && n <= (T.days || []).length) ? n : null; }
+    function renderCountdown(T) {
+      var box = $("countdown"), s = parseISO(T.start), e = parseISO(T.end); box.innerHTML = "";
+      if (!s) { box.hidden = true; return; }
+      var t = todayLocal(), toStart = dayDiff(t, s), n = el("div", "n"), l = el("div", "lbl");
+      if (toStart > 0) {
+        n.appendChild(document.createTextNode(String(toStart))); n.appendChild(el("small", null, "天"));
+        l.appendChild(el("b", null, "距離出發")); l.appendChild(document.createTextNode(T.range || T.start));
+      } else if (!e || t <= e) {
+        var dn = dayDiff(s, t) + 1, d = (T.days || [])[dn - 1];
+        n.appendChild(document.createTextNode(String(dn))); n.appendChild(el("small", null, "/ " + (T.days || []).length + " 天"));
+        l.appendChild(el("b", null, "旅程進行中，第 " + dn + " 天"));
+        if (d) { var a = el("a", null, "今天：" + (d.place ? d.place + " · " : "") + (d.title || "")); a.href = "#day-" + dn; l.appendChild(a); }
+      } else {
+        var past = dayDiff(e, t);
+        n.appendChild(document.createTextNode(String(past))); n.appendChild(el("small", null, "天前"));
+        l.appendChild(el("b", null, "旅程已結束")); l.appendChild(document.createTextNode(T.range || ""));
+      }
+      box.appendChild(n); box.appendChild(l); box.hidden = false;
+    }
+
+    /* ---------- 費用 ---------- */
+    function toTWD(T, amt, cur) { if (amt == null || amt === "") return null; if (!cur || cur === "TWD") return Math.round(Number(amt)); var r = (T.rate || {})[cur]; return r ? Math.round(Number(amt) * r) : null; }
+    function money(amt, cur) { return amt == null || amt === "" ? "—" : (cur === "JPY" ? "¥" : "NT$") + fmt(amt); }
+    function stLabel(p) { return p === true ? ["已付", "st-paid"] : p === false ? ["出發前付", "st-due"] : p === "onsite" ? ["現場付", "st-onsite"] : ["待確認", "st-tbd"]; }
+    function renderCosts(T) {
+      var host = $("costs"); host.innerHTML = "";
+      var rows = [];
+      (T.stays || []).forEach(function (s) { rows.push({ cat: "住宿", item: (s.name || "") + "（" + (s.nights || 0) + " 晚）", amount: s.price, cur: "TWD", paid: s.paid, date: s.checkin, note: s.payNote }); });
+      (T.costs || []).forEach(function (c) { rows.push(c); });
+      var rate = (T.rate || {}).JPY;
+      $("cost-sub").textContent = rate ? "兩人合計，日圓以 1 JPY = " + rate + " TWD 換算（資料檔 rate 可改）" : "兩人合計";
+      if (!rows.length) { var e = el("div", "empty"); e.appendChild(el("b", null, "還沒填費用")); host.appendChild(e); return; }
+      var ppl = Number(T.travelers) || 2, tot = 0, paid = 0, due = 0, onsite = 0, unknown = 0, tbd = 0, byCat = {};
+      rows.forEach(function (r) {
+        var v = toTWD(T, r.amount, r.cur); if (v == null) { tbd++; return; }
+        tot += v; var c = r.cat || "其他"; byCat[c] = (byCat[c] || 0) + v;
+        if (r.paid === true) paid += v; else if (r.paid === false) due += v; else if (r.paid === "onsite") onsite += v; else unknown += v;
+      });
+      var k = el("div", "kpis");
+      [["總計 TWD", fmt(tot), "每人 " + fmt(Math.round(tot / ppl)) + (tbd ? " · " + tbd + " 筆金額待填" : "")],
+       ["已付", fmt(paid), ""], ["出發前要付", fmt(due), unknown ? "另有 " + fmt(unknown) + " 付款狀態待確認" : ""], ["現場付", fmt(onsite), "日圓現金或刷卡"]].forEach(function (x) {
+        var c = el("div", "kpi"); c.appendChild(el("div", "k", x[0])); c.appendChild(el("div", "v", x[1])); if (x[2]) c.appendChild(el("div", "s", x[2])); k.appendChild(c);
+      });
+      host.appendChild(k);
+      var wrap = el("div", "costwrap"), t = el("table"), thead = el("thead"), hr = el("tr");
+      ["項目", "金額", "狀態"].forEach(function (x, i) { hr.appendChild(el("th", i === 1 ? "num" : null, x)); });
+      thead.appendChild(hr); t.appendChild(thead);
+      var tb = el("tbody");
+      rows.forEach(function (r) {
+        var tr = el("tr"), c1 = el("td"); c1.appendChild(el("div", "name", r.item || ""));
+        var sub = [r.cat || "其他", r.date, r.note].filter(Boolean).join(" · "); if (sub) c1.appendChild(el("div", "sub", sub)); tr.appendChild(c1);
+        var c2 = el("td", "num per", money(r.amount, r.cur)); var v = toTWD(T, r.amount, r.cur); if (r.cur === "JPY" && v != null) c2.appendChild(el("span", "twd", "≈ NT$" + fmt(v))); tr.appendChild(c2);
+        var st = stLabel(r.paid), c3 = el("td"); c3.appendChild(el("span", "st " + st[1], st[0])); tr.appendChild(c3);
+        tb.appendChild(tr);
+      });
+      t.appendChild(tb);
+      var tf = el("tfoot"), fr = el("tr"); fr.appendChild(el("td", null, "合計 · 每人 NT$" + fmt(Math.round(tot / ppl)))); fr.appendChild(el("td", "num", "NT$" + fmt(tot))); fr.appendChild(el("td", null, "")); tf.appendChild(fr); t.appendChild(tf);
+      wrap.appendChild(t); host.appendChild(wrap);
+      var cats = el("div", "cats");
+      Object.keys(byCat).sort(function (a, b) { return byCat[b] - byCat[a]; }).forEach(function (c) { var sp = el("span", null, c); sp.appendChild(el("b", null, fmt(byCat[c]))); cats.appendChild(sp); });
+      host.appendChild(cats);
+    }
+
+    /* ---------- 旅途記帳（localStorage，每台裝置各自一份，用匯出／匯入合併） ---------- */
+    function renderSpend(T) {
+      var host = $("spend"); host.innerHTML = "";
+      var KEY = "triplog." + T.id + ".spend", order = (T.days || []).map(function (d) { return d.date; });
+      function load() { try { return JSON.parse(localStorage.getItem(KEY) || "[]") || []; } catch (e) { return []; } }
+      function save() { try { localStorage.setItem(KEY, JSON.stringify(list)); } catch (e) {} }
+      var list = load();
+      host.appendChild(el("h3", null, "旅途記帳"));
+      host.appendChild(el("p", "hint", "出門後在手機上記，存在這台裝置的瀏覽器裡。按「匯出」把內容傳給旅伴，對方貼上按「匯入」就會合併。"));
+      var f = el("form", "sform");
+      var dSel = el("select"); (T.days || []).forEach(function (d) { var o = el("option", null, "D" + d.n + " " + (d.date || "") + (d.place ? " " + d.place : "")); o.value = d.date || ("D" + d.n); dSel.appendChild(o); });
+      var tn = tripDayN(T); if (tn) dSel.value = (T.days[tn - 1] || {}).date;
+      var cSel = el("select"); ["餐飲", "交通", "門票", "購物", "住宿", "其他"].forEach(function (c) { var o = el("option", null, c); o.value = c; cSel.appendChild(o); });
+      var item = el("input", "wide"); item.placeholder = "項目，例如 大黑屋晚餐"; item.required = true; item.maxLength = 60;
+      var amt = el("input"); amt.type = "number"; amt.inputMode = "decimal"; amt.placeholder = "金額 ¥"; amt.required = true; amt.min = "0"; amt.step = "1";
+      var bySel = el("select"); ["共同", "我付", "旅伴付"].forEach(function (c) { var o = el("option", null, c); o.value = c; bySel.appendChild(o); });
+      var btn = el("button", "wide", "＋ 記一筆"); btn.type = "submit";
+      [dSel, cSel, item, amt, bySel, btn].forEach(function (x) { f.appendChild(x); });
+      f.addEventListener("submit", function (ev) {
+        ev.preventDefault(); var v = Number(amt.value); if (!item.value.trim() || !(v >= 0)) return;
+        list.push({ id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6), date: dSel.value, cat: cSel.value, item: item.value.trim(), amt: v, by: bySel.value, at: new Date().toISOString() });
+        save(); item.value = ""; amt.value = ""; draw(); item.focus();
+      });
+      host.appendChild(f);
+      var listHost = el("div", "slist"), totalHost = el("div", "stotal"); host.appendChild(listHost); host.appendChild(totalHost);
+      var tools = el("div", "stools"), ta = el("textarea"), msg = el("span", "msg"); ta.hidden = true; ta.placeholder = "貼上旅伴匯出的內容，再按一次「匯入」";
+      var bEx = el("button", "ghost", "匯出"), bIm = el("button", "ghost", "匯入"), bClr = el("button", "ghost", "清除全部");
+      [bEx, bIm, bClr].forEach(function (b) { b.type = "button"; tools.appendChild(b); });
+      tools.appendChild(msg); host.appendChild(tools); host.appendChild(ta);
+      bEx.addEventListener("click", function () {
+        ta.hidden = false; ta.value = JSON.stringify(list); ta.select();
+        if (navigator.clipboard) navigator.clipboard.writeText(ta.value).then(function () { msg.textContent = "已複製到剪貼簿，傳給旅伴即可"; }, function () { msg.textContent = "請自行複製下面的內容"; });
+        else msg.textContent = "請自行複製下面的內容";
+      });
+      bIm.addEventListener("click", function () {
+        if (ta.hidden) { ta.hidden = false; ta.value = ""; ta.focus(); msg.textContent = "貼上後再按一次「匯入」"; return; }
+        try {
+          var inc = JSON.parse(ta.value || "[]"), ids = {}, n = 0; list.forEach(function (x) { ids[x.id] = 1; });
+          (inc || []).forEach(function (x) { if (x && x.id && !ids[x.id] && typeof x.item === "string") { list.push({ id: String(x.id), date: String(x.date || ""), cat: String(x.cat || "其他"), item: x.item.slice(0, 60), amt: Number(x.amt) || 0, by: String(x.by || "共同"), at: String(x.at || "") }); ids[x.id] = 1; n++; } });
+          save(); ta.hidden = true; msg.textContent = "匯入 " + n + " 筆"; draw();
+        } catch (e) { msg.textContent = "格式不對，要貼「匯出」產生的那段文字"; }
+      });
+      bClr.addEventListener("click", function () {
+        if (bClr.dataset.arm) { list = []; save(); draw(); bClr.textContent = "清除全部"; delete bClr.dataset.arm; msg.textContent = "已清除"; return; }
+        bClr.dataset.arm = "1"; bClr.textContent = "再按一次確定清除"; setTimeout(function () { bClr.textContent = "清除全部"; delete bClr.dataset.arm; }, 4000);
+      });
+      function draw() {
+        listHost.innerHTML = ""; totalHost.innerHTML = "";
+        if (!list.length) { var e = el("div", "empty"); e.appendChild(el("b", null, "還沒有記帳")); e.appendChild(document.createTextNode("出發後在上面填一筆就會出現在這裡")); listHost.appendChild(e); return; }
+        var dates = []; list.forEach(function (x) { if (dates.indexOf(x.date) < 0) dates.push(x.date); });
+        dates.sort(function (a, b) { return order.indexOf(a) - order.indexOf(b); });
+        var total = 0, by = {}, mine = 0, theirs = 0;
+        dates.forEach(function (dt) {
+          var g = el("div", "sday"), items = list.filter(function (x) { return x.date === dt; }), sub = 0;
+          items.forEach(function (x) { sub += Number(x.amt) || 0; });
+          var hd = el("h4"), di = order.indexOf(dt); hd.appendChild(el("span", null, (di >= 0 ? "DAY " + (di + 1) + " · " : "") + dt)); hd.appendChild(el("span", null, "¥" + fmt(sub))); g.appendChild(hd);
+          items.forEach(function (x) {
+            var r = el("div", "srow"), left = el("div"); left.appendChild(el("div", null, x.item)); left.appendChild(el("div", "m", (x.cat || "") + (x.by && x.by !== "共同" ? " · " + x.by : ""))); r.appendChild(left);
+            r.appendChild(el("div", "a", "¥" + fmt(x.amt)));
+            var xb = el("button", "x", "×"); xb.type = "button"; xb.title = "刪除這筆"; xb.addEventListener("click", function () { list = list.filter(function (y) { return y.id !== x.id; }); save(); draw(); }); r.appendChild(xb);
+            g.appendChild(r);
+            var v = Number(x.amt) || 0; total += v; by[x.cat || "其他"] = (by[x.cat || "其他"] || 0) + v;
+            if (x.by === "我付") mine += v; else if (x.by === "旅伴付") theirs += v;
+          });
+          listHost.appendChild(g);
+        });
+        var twd = toTWD(T, total, "JPY"), s1 = el("span", null, "合計 "); s1.appendChild(el("b", null, "¥" + fmt(total))); if (twd != null) s1.appendChild(document.createTextNode("（約 NT$" + fmt(twd) + "）")); totalHost.appendChild(s1);
+        totalHost.appendChild(el("span", null, Object.keys(by).map(function (c) { return c + " ¥" + fmt(by[c]); }).join(" · ")));
+        if (mine || theirs) { var diff = Math.round((mine - theirs) / 2); totalHost.appendChild(el("span", null, diff > 0 ? "旅伴應還我 ¥" + fmt(diff) : diff < 0 ? "我應還旅伴 ¥" + fmt(-diff) : "兩人付的一樣多")); }
+      }
+      draw();
     }
 
     /* ---------- 待辦 ---------- */

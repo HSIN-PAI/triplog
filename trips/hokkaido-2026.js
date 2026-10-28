@@ -28,6 +28,8 @@ window.TRIP = {
   mode: "Day 1 鐵路直達函館 → Day 3–6 自駕縱走 → Day 6–9 札幌定點鐵路遊",
   travelers: 2,
   updated: "2026-10-28（第七次修訂：所有地圖連結改成唯一地點、移動卡加 Google 路線，距離依 Google 修正；由緣札幌實際在北 1 條西 7）",
+  start: "2026-11-30", end: "2026-12-08",   // 倒數、標示「今天」用（ISO 日期）
+  rate: { JPY: 0.21 },                      // 1 日圓換多少台幣，費用表換算用；出發前改成當時匯率
 
   days: [
     {
@@ -281,6 +283,26 @@ window.TRIP = {
           board: "國際線航廈 3 樓出發。掛完行李先去機場限定伴手禮再過安檢，安檢抓 10:40 前", url: "https://maps.google.com/?cid=8933989931952817041" }
       ]
     }
+  ],
+
+  // 費用（兩人合計）：cat 類別、item 項目、amount 金額、cur TWD | JPY、paid true 已付 | false 出發前要付 | "onsite" 現場付、date 哪天、note 備註
+  // 住宿不用寫在這裡，會從 stays 自動帶入（stays[].paid 同樣可填）
+  costs: [
+    { cat: "機票", item: "長榮 BR116／BR165 桃園↔新千歲 2 人", amount: null, cur: "TWD", paid: true, date: "11/30", note: "已訂，金額待填" },
+    { cat: "租車", item: "ORIX CX-5 同等級 4WD 12/1–12/5（Tabirai 101865169）", amount: 75993, cur: "JPY", paid: "onsite", date: "12/01", note: "含免責、RAP、ETC 卡、異地還車 ¥22,000，取車時刷卡" },
+    { cat: "租車", item: "HEP 北海道高速公路周遊券 5 日版", amount: 9600, cur: "JPY", paid: "onsite", date: "12/01", note: "取車時櫃台辦" },
+    { cat: "租車", item: "油錢（約 500 公里）", amount: 7500, cur: "JPY", paid: "onsite", date: "12/05", note: "估" },
+    { cat: "租車", item: "停車：五稜郭 Times ¥700、JR Inn ¥600", amount: 1300, cur: "JPY", paid: "onsite", date: "12/01" },
+    { cat: "交通", item: "JR 新千歲機場→函館 特急北斗 指定席 2 人", amount: 17160, cur: "JPY", paid: false, date: "11/30", note: "10/30 えきねっと開賣後付" },
+    { cat: "交通", item: "函館市電 3 趟 2 人", amount: 1500, cur: "JPY", paid: "onsite", date: "12/01" },
+    { cat: "交通", item: "JR 札幌↔小樽 2 人", amount: 3200, cur: "JPY", paid: "onsite", date: "12/06" },
+    { cat: "交通", item: "札幌地下鐵 Day 8 三段 2 人", amount: 1580, cur: "JPY", paid: "onsite", date: "12/07" },
+    { cat: "交通", item: "由緣→札幌站計程車", amount: 700, cur: "JPY", paid: "onsite", date: "12/08" },
+    { cat: "交通", item: "快速 Airport 札幌→新千歲 2 人", amount: 2460, cur: "JPY", paid: "onsite", date: "12/08" },
+    { cat: "門票", item: "函館山纜車往復 2 人", amount: 3600, cur: "JPY", paid: "onsite", date: "12/01" },
+    { cat: "門票", item: "五稜郭塔展望台 2 人", amount: 2000, cur: "JPY", paid: "onsite", date: "12/01", note: "估" },
+    { cat: "門票", item: "TOMAMU 霧冰露台纜車往返 2 人", amount: 5000, cur: "JPY", paid: "onsite", date: "12/05" },
+    { cat: "其他", item: "宿泊税・入湯税 8 晚 2 人", amount: 4000, cur: "JPY", paid: "onsite", date: "", note: "現金，估" }
   ],
 
   stays: [

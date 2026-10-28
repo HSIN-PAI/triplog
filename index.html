@@ -58,6 +58,15 @@
   <script>
     (function () {
       var STATUS = { planning: ["規劃中", "b-planning"], upcoming: ["即將出發", "b-upcoming"], done: ["已完成", "b-done"] };
+      function iso(s) { var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s || ""); return m ? new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3])) : null; }
+      // 有 start/end 就依今天算倒數：出發前「還有 N 天」、旅程中「第 N 天」、結束後「已完成」
+      function countdown(t) {
+        var s = iso(t.start), e = iso(t.end); if (!s) return null;
+        var d = new Date(), today = new Date(d.getFullYear(), d.getMonth(), d.getDate()), diff = Math.round((s - today) / 86400000);
+        if (diff > 0) return ["還有 " + diff + " 天出發", "b-upcoming"];
+        if (!e || today <= e) return ["旅程中 · 第 " + (1 - diff) + " 天", "b-upcoming"];
+        return ["已完成", "b-done"];
+      }
       var host = document.getElementById("list");
       var trips = window.TRIPS || [];
       if (!trips.length) { host.innerHTML = '<div class="empty">還沒有任何旅程。</div>'; return; }
@@ -68,7 +77,7 @@
         var rr = document.createElement("span"); rr.className = "r"; rr.textContent = t.range || "";
         row.appendChild(tt); row.appendChild(rr); a.appendChild(row);
         if (t.summary) { var s = document.createElement("div"); s.className = "sum"; s.textContent = t.summary; a.appendChild(s); }
-        var st = STATUS[t.status]; if (st) { var b = document.createElement("span"); b.className = "badge " + st[1]; b.textContent = st[0]; a.appendChild(b); }
+        var st = countdown(t) || STATUS[t.status]; if (st) { var b = document.createElement("span"); b.className = "badge " + st[1]; b.textContent = st[0]; a.appendChild(b); }
         host.appendChild(a);
       });
     })();

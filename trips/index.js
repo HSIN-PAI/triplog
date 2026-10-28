@@ -8,6 +8,7 @@ window.TRIPS = [
     id: "hokkaido-2026",
     title: "北海道 9 天 8 夜",
     range: "2026/11/30 – 12/08",
+    start: "2026-11-30", end: "2026-12-08",   // 首頁倒數用
     summary: "鐵路直達函館 → 自駕縱走洞爺・富良野・旭川 → 札幌定點",
     status: "planning"   // planning | upcoming | done
   }

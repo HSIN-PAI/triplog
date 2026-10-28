@@ -42,6 +42,8 @@ window.TRIP = {
   mode: "一句話說明行程模式",
   travelers: 2,              // 住宿「每人」金額用這個除
   updated: "2026-10-26",
+  start: "2026-11-30", end: "2026-12-08",   // 倒數與「今天」標示用；trips/index.js 同樣可填，首頁會顯示倒數
+  rate: { JPY: 0.21 },                      // 1 日圓換多少台幣，費用表換算用
 
   days: [
     { n: 1, date: "11/30", weekday: "一", place: "函館", leg: "rail",   // place 顯示在路線圖站名；leg = rail 鐵路 | drive 自駕 | city 市區（決定線段顏色）
@@ -60,7 +62,10 @@ window.TRIP = {
         //  routeUrl：移動選填，Google 路線連結（起點座標 → 終點座標），會變成「路線 ↗」
       ] }
   ],
-  stays: [ { name, checkin, checkout, nights, price, area, note, url } ],   // price 單位 TWD
+  stays: [ { name, checkin, checkout, nights, price, area, note, url, paid } ],   // price 單位 TWD；paid 同 costs
+  costs: [ { cat: "租車", item: "項目", amount: 75993, cur: "JPY", paid: "onsite", date: "12/01", note: "" } ],
+  //  費用：兩人合計；cur TWD | JPY；paid true 已付 | false 出發前要付 | "onsite" 現場付；住宿會從 stays 自動帶入
+  //  旅途記帳（頁面上「費用」區塊下方）存在瀏覽器 localStorage，每台裝置各一份，用匯出／匯入合併，不寫進資料檔
   todos: [ { cat: "分類", text: "事項", done: false } ],
   notes: [ { by: "誰", at: "2026/10/26", text: "還沒定案的事" } ]
 };
