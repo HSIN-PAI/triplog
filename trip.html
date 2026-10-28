@@ -415,6 +415,7 @@
       h.appendChild(route);
       var right = el("div", "kindrow");
       if (it.via) right.appendChild(el("span", "via", it.via));
+      if (it.routeUrl) { var ra = el("a", "map", "路線 ↗"); ra.href = it.routeUrl; ra.target = "_blank"; ra.rel = "noopener"; ra.title = "Google 路線：起點到終點"; right.appendChild(ra); }
       if (it.url) { var a = el("a", "map", "目的地 ↗"); a.href = it.url; a.target = "_blank"; a.rel = "noopener"; right.appendChild(a); }
       h.appendChild(right); r.appendChild(h);
       if (it.time || it.arr || it.dur) {

@@ -56,7 +56,8 @@ window.TRIP = {
           board: "在哪上車：幾樓、幾番線、怎麼走到月台（會加粗）", alight: "下車後怎麼走",
           fare: "票價", ticket: "怎麼買、何時開賣（未 booked 時顯示「待訂」）", note: "備案", booked: false }
         //  mode：fly 飛機 | rail 鐵路 | drive 自駕 | taxi | bus | walk，只影響圖示
-        //  url：移動一律連「目的地」，其他項目連該地點；boardUrl 只在上車處和上一項不同時填
+        //  url：移動一律連「目的地」，其他項目連該地點，一律用 Google 唯一地點連結 https://maps.google.com/?cid=…；boardUrl 只在上車處和上一項不同時填
+        //  routeUrl：移動選填，Google 路線連結（起點座標 → 終點座標），會變成「路線 ↗」
       ] }
   ],
   stays: [ { name, checkin, checkout, nights, price, area, note, url } ],   // price 單位 TWD
