@@ -64,8 +64,10 @@ window.TRIP = {
   ],
   stays: [ { name, checkin, checkout, nights, price, area, note, url, paid } ],   // price 單位 TWD；paid 同 costs
   costs: [ { cat: "租車", item: "項目", amount: 75993, cur: "JPY", paid: "onsite", date: "12/01", note: "" } ],
-  //  費用：兩人合計；cur TWD | JPY；paid true 已付 | false 出發前要付 | "onsite" 現場付；住宿會從 stays 自動帶入
-  //  旅途記帳（頁面上「費用」區塊下方）存在瀏覽器 localStorage，每台裝置各一份，用匯出／匯入合併，不寫進資料檔
+  //  費用：只記已經付掉的，兩人合計；cur TWD | JPY；paid true 已付；住宿會從 stays 自動帶入
+  repo: "HSIN-PAI/triplog", branch: "main",   // 旅途記帳同步到 GitHub 的位置
+  //  旅途記帳（頁面上「費用」區塊下方）：每台裝置先存 localStorage，按「同步到 GitHub」寫進 trips/<id>.spend.json（{ items, deleted }）。
+  //  讀取不用設定；寫入要在頁面的「GitHub 同步設定」貼一次 fine-grained token（只給這個 repo 的 Contents 讀寫），token 只留在該裝置
   todos: [ { cat: "分類", text: "事項", done: false } ],
   notes: [ { by: "誰", at: "2026/10/26", text: "還沒定案的事" } ]
 };

@@ -236,6 +236,14 @@
     .stools textarea { width: 100%; min-height: 90px; font-family: var(--mono); font-size: .74rem; }
     .stotal { display: flex; justify-content: space-between; gap: 6px 14px; flex-wrap: wrap; margin-top: 10px; font-size: .88rem; color: var(--muted); }
     .stotal b { font-family: var(--mono); font-variant-numeric: tabular-nums; color: var(--fg); }
+    .ssync { margin-top: 10px; font-size: .78rem; color: var(--muted); }
+    .ssync summary { cursor: pointer; color: var(--accent); }
+    .ssync .box { margin-top: 8px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; }
+    .ssync .box ol { margin: 0; padding-left: 18px; }
+    .ssync .box input { font: inherit; font-size: .84rem; color: var(--fg); background: var(--surface2); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; width: 100%; font-family: var(--mono); }
+    .ssync .box .row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .ssync .box button { font: inherit; font-size: .84rem; padding: 7px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface2); color: var(--fg); cursor: pointer; }
+    .ssync .box button.primary { background: var(--accent); border-color: var(--accent); color: var(--surface); font-weight: 600; }
 
     /* ---------- 待辦 ---------- */
     .progress { display: flex; align-items: center; gap: 10px; font-size: .78rem; color: var(--muted); }
@@ -664,8 +672,8 @@
         if (r.paid === true) paid += v; else if (r.paid === false) due += v; else if (r.paid === "onsite") onsite += v; else unknown += v;
       });
       var k = el("div", "kpis");
-      [["總計 TWD", fmt(tot), "每人 " + fmt(Math.round(tot / ppl)) + (tbd ? " · " + tbd + " 筆金額待填" : "")],
-       ["已付", fmt(paid), ""], ["出發前要付", fmt(due), unknown ? "另有 " + fmt(unknown) + " 付款狀態待確認" : ""], ["現場付", fmt(onsite), "日圓現金或刷卡"]].forEach(function (x) {
+      [["已付總計 TWD", fmt(tot), tbd ? tbd + " 筆金額待填" : ""], ["每人", fmt(Math.round(tot / ppl)), ppl + " 人均分"]]
+        .concat(due || onsite || unknown ? [["還沒付", fmt(due + onsite + unknown), unknown ? "其中 " + fmt(unknown) + " 付款狀態待確認" : ""]] : []).forEach(function (x) {
         var c = el("div", "kpi"); c.appendChild(el("div", "k", x[0])); c.appendChild(el("div", "v", x[1])); if (x[2]) c.appendChild(el("div", "s", x[2])); k.appendChild(c);
       });
       host.appendChild(k);
@@ -688,15 +696,31 @@
       host.appendChild(cats);
     }
 
-    /* ---------- 旅途記帳（localStorage，每台裝置各自一份，用匯出／匯入合併） ---------- */
+    /* ---------- 旅途記帳 ----------
+       每台裝置先存在 localStorage，再同步到 GitHub repo 的 trips/<id>.spend.json（內容 { items, deleted }）。
+       讀取不用 token（公開 repo）；寫入要在「GitHub 同步設定」填一次 fine-grained token（只給這個 repo 的 Contents 讀寫），token 只留在這台裝置。 */
+    function b64e(s) { return btoa(unescape(encodeURIComponent(s))); }
+    function b64d(s) { return decodeURIComponent(escape(atob(String(s).replace(/\n/g, "")))); }
     function renderSpend(T) {
       var host = $("spend"); host.innerHTML = "";
-      var KEY = "triplog." + T.id + ".spend", order = (T.days || []).map(function (d) { return d.date; });
-      function load() { try { return JSON.parse(localStorage.getItem(KEY) || "[]") || []; } catch (e) { return []; } }
-      function save() { try { localStorage.setItem(KEY, JSON.stringify(list)); } catch (e) {} }
-      var list = load();
+      var KEY = "triplog." + T.id + ".spend", TKEY = "triplog.ghtoken", order = (T.days || []).map(function (d) { return d.date; });
+      var repo = T.repo || "", branch = T.branch || "main", path = "trips/" + T.id + ".spend.json";
+      var api = "https://api.github.com/repos/" + repo + "/contents/" + path;
+      function clean(x) { return { id: String(x.id), date: String(x.date || ""), cat: String(x.cat || "其他"), item: String(x.item || "").slice(0, 60), amt: Number(x.amt) || 0, by: String(x.by || "共同"), at: String(x.at || "") }; }
+      function merge(a, b) {   // 兩份資料聯集，刪除紀錄也聯集：刪過的在任何一邊都不會復活
+        var del = {}; ((a && a.deleted) || []).concat((b && b.deleted) || []).forEach(function (id) { del[id] = 1; });
+        var map = {}; ((a && a.items) || []).concat((b && b.items) || []).forEach(function (x) { if (x && x.id && !del[x.id] && typeof x.item === "string") map[x.id] = clean(x); });
+        var items = Object.keys(map).map(function (k) { return map[k]; });
+        items.sort(function (x, y) { var d = order.indexOf(x.date) - order.indexOf(y.date); return d || (x.at < y.at ? -1 : x.at > y.at ? 1 : 0); });
+        return { items: items, deleted: Object.keys(del) };
+      }
+      function load() { try { var v = JSON.parse(localStorage.getItem(KEY) || "null"); if (Array.isArray(v)) v = { items: v, deleted: [] }; return merge(v || {}, {}); } catch (e) { return { items: [], deleted: [] }; } }
+      function save() { try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (e) {} }
+      function getToken() { try { return localStorage.getItem(TKEY) || ""; } catch (e) { return ""; } }
+      var data = load();
+
       host.appendChild(el("h3", null, "旅途記帳"));
-      host.appendChild(el("p", "hint", "出門後在手機上記，存在這台裝置的瀏覽器裡。按「匯出」把內容傳給旅伴，對方貼上按「匯入」就會合併。"));
+      host.appendChild(el("p", "hint", "出門後在手機上記一筆，按「同步到 GitHub」就存進 repo，兩個人的手機各自同步、互相看得到。"));
       var f = el("form", "sform");
       var dSel = el("select"); (T.days || []).forEach(function (d) { var o = el("option", null, "D" + d.n + " " + (d.date || "") + (d.place ? " " + d.place : "")); o.value = d.date || ("D" + d.n); dSel.appendChild(o); });
       var tn = tripDayN(T); if (tn) dSel.value = (T.days[tn - 1] || {}).date;
@@ -708,34 +732,75 @@
       [dSel, cSel, item, amt, bySel, btn].forEach(function (x) { f.appendChild(x); });
       f.addEventListener("submit", function (ev) {
         ev.preventDefault(); var v = Number(amt.value); if (!item.value.trim() || !(v >= 0)) return;
-        list.push({ id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6), date: dSel.value, cat: cSel.value, item: item.value.trim(), amt: v, by: bySel.value, at: new Date().toISOString() });
-        save(); item.value = ""; amt.value = ""; draw(); item.focus();
+        data.items.push(clean({ id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6), date: dSel.value, cat: cSel.value, item: item.value.trim(), amt: v, by: bySel.value, at: new Date().toISOString() }));
+        data = merge(data, {}); save(); item.value = ""; amt.value = ""; draw(); item.focus(); msg.textContent = "已存在這台裝置，記得按「同步到 GitHub」";
       });
       host.appendChild(f);
       var listHost = el("div", "slist"), totalHost = el("div", "stotal"); host.appendChild(listHost); host.appendChild(totalHost);
+
+      // 工具列
       var tools = el("div", "stools"), ta = el("textarea"), msg = el("span", "msg"); ta.hidden = true; ta.placeholder = "貼上旅伴匯出的內容，再按一次「匯入」";
-      var bEx = el("button", "ghost", "匯出"), bIm = el("button", "ghost", "匯入"), bClr = el("button", "ghost", "清除全部");
-      [bEx, bIm, bClr].forEach(function (b) { b.type = "button"; tools.appendChild(b); });
+      var bSync = el("button", null, "同步到 GitHub"), bEx = el("button", "ghost", "匯出"), bIm = el("button", "ghost", "匯入"), bClr = el("button", "ghost", "清除本機");
+      [bSync, bEx, bIm, bClr].forEach(function (b) { b.type = "button"; tools.appendChild(b); });
       tools.appendChild(msg); host.appendChild(tools); host.appendChild(ta);
       bEx.addEventListener("click", function () {
-        ta.hidden = false; ta.value = JSON.stringify(list); ta.select();
-        if (navigator.clipboard) navigator.clipboard.writeText(ta.value).then(function () { msg.textContent = "已複製到剪貼簿，傳給旅伴即可"; }, function () { msg.textContent = "請自行複製下面的內容"; });
+        ta.hidden = false; ta.value = JSON.stringify(data); ta.select();
+        if (navigator.clipboard) navigator.clipboard.writeText(ta.value).then(function () { msg.textContent = "已複製到剪貼簿"; }, function () { msg.textContent = "請自行複製下面的內容"; });
         else msg.textContent = "請自行複製下面的內容";
       });
       bIm.addEventListener("click", function () {
         if (ta.hidden) { ta.hidden = false; ta.value = ""; ta.focus(); msg.textContent = "貼上後再按一次「匯入」"; return; }
-        try {
-          var inc = JSON.parse(ta.value || "[]"), ids = {}, n = 0; list.forEach(function (x) { ids[x.id] = 1; });
-          (inc || []).forEach(function (x) { if (x && x.id && !ids[x.id] && typeof x.item === "string") { list.push({ id: String(x.id), date: String(x.date || ""), cat: String(x.cat || "其他"), item: x.item.slice(0, 60), amt: Number(x.amt) || 0, by: String(x.by || "共同"), at: String(x.at || "") }); ids[x.id] = 1; n++; } });
-          save(); ta.hidden = true; msg.textContent = "匯入 " + n + " 筆"; draw();
-        } catch (e) { msg.textContent = "格式不對，要貼「匯出」產生的那段文字"; }
+        try { var inc = JSON.parse(ta.value || "{}"); if (Array.isArray(inc)) inc = { items: inc }; var before = data.items.length; data = merge(data, inc); save(); ta.hidden = true; msg.textContent = "匯入後共 " + data.items.length + " 筆（新增 " + Math.max(0, data.items.length - before) + "）"; draw(); }
+        catch (e) { msg.textContent = "格式不對，要貼「匯出」產生的那段文字"; }
       });
       bClr.addEventListener("click", function () {
-        if (bClr.dataset.arm) { list = []; save(); draw(); bClr.textContent = "清除全部"; delete bClr.dataset.arm; msg.textContent = "已清除"; return; }
-        bClr.dataset.arm = "1"; bClr.textContent = "再按一次確定清除"; setTimeout(function () { bClr.textContent = "清除全部"; delete bClr.dataset.arm; }, 4000);
+        if (bClr.dataset.arm) { data = { items: [], deleted: [] }; save(); draw(); bClr.textContent = "清除本機"; delete bClr.dataset.arm; msg.textContent = "已清掉這台裝置的紀錄，GitHub 上的不受影響，重新載入會再抓回來"; return; }
+        bClr.dataset.arm = "1"; bClr.textContent = "再按一次確定清除"; setTimeout(function () { bClr.textContent = "清除本機"; delete bClr.dataset.arm; }, 4000);
       });
+
+      // GitHub 同步設定
+      var det = el("details", "ssync"), sum = el("summary", null, "GitHub 同步設定" + (getToken() ? "（已設定 token）" : "")); det.appendChild(sum);
+      var box = el("div", "box");
+      box.appendChild(el("div", null, "寫入 " + (repo || "（資料檔還沒填 repo）") + " 的 " + path + "。讀取不用設定；要寫入請在 GitHub 建一個 fine-grained token："));
+      var ol = el("ol"); ["GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token", "Repository access 只選 " + repo + "；Permissions → Contents 設 Read and write", "有效期選到旅程結束後，產生後把 token 貼在下面。它只存在這台裝置的瀏覽器裡"].forEach(function (t) { ol.appendChild(el("li", null, t)); });
+      box.appendChild(ol);
+      var tin = el("input"); tin.type = "password"; tin.placeholder = "github_pat_…"; tin.autocomplete = "off"; tin.value = getToken(); box.appendChild(tin);
+      var row = el("div", "row"), bSave = el("button", "primary", "儲存 token"), bDel = el("button", null, "移除 token"); bSave.type = "button"; bDel.type = "button";
+      bSave.addEventListener("click", function () { try { localStorage.setItem(TKEY, tin.value.trim()); } catch (e) {} sum.textContent = "GitHub 同步設定" + (tin.value.trim() ? "（已設定 token）" : ""); msg.textContent = tin.value.trim() ? "token 已存，可以按「同步到 GitHub」" : "token 已清空"; });
+      bDel.addEventListener("click", function () { try { localStorage.removeItem(TKEY); } catch (e) {} tin.value = ""; sum.textContent = "GitHub 同步設定"; msg.textContent = "token 已移除"; });
+      row.appendChild(bSave); row.appendChild(bDel); box.appendChild(row); det.appendChild(box); host.appendChild(det);
+
+      // 讀 GitHub 上的紀錄（不用 token），合併進本機
+      function pull(token) {
+        var hd = { Accept: "application/vnd.github+json" }; if (token) hd.Authorization = "Bearer " + token;
+        return fetch(api + "?ref=" + encodeURIComponent(branch) + "&t=" + Date.now(), { headers: hd, cache: "no-store" }).then(function (r) {
+          if (r.status === 404) return { sha: null, data: { items: [], deleted: [] } };
+          if (!r.ok) throw new Error("GitHub 回應 " + r.status);
+          return r.json().then(function (j) { var d = {}; try { d = JSON.parse(b64d(j.content || "")) || {}; } catch (e) {} return { sha: j.sha, data: d }; });
+        });
+      }
+      function push(token, sha) {
+        var body = { message: "記帳同步 " + T.id + " " + new Date().toISOString().slice(0, 16).replace("T", " ") + "（" + data.items.length + " 筆）", content: b64e(JSON.stringify(data, null, 2) + "\n"), branch: branch };
+        if (sha) body.sha = sha;
+        return fetch(api, { method: "PUT", headers: { Accept: "application/vnd.github+json", Authorization: "Bearer " + token, "Content-Type": "application/json" }, body: JSON.stringify(body) })
+          .then(function (r) { if (!r.ok) return r.json().catch(function () { return {}; }).then(function (j) { throw new Error("GitHub 回應 " + r.status + (j.message ? "：" + j.message : "")); }); return r.json(); });
+      }
+      bSync.addEventListener("click", function () {
+        var token = getToken(); if (!repo) { msg.textContent = "資料檔沒填 repo"; return; }
+        if (!token) { det.open = true; tin.focus(); msg.textContent = "先在下面設定 GitHub token"; return; }
+        bSync.disabled = true; msg.textContent = "同步中…";
+        pull(token).then(function (r) {
+          var merged = merge(data, r.data), same = JSON.stringify(merged) === JSON.stringify(merge(r.data, {}));
+          data = merged; save(); draw();
+          if (same) { msg.textContent = "GitHub 已是最新，共 " + data.items.length + " 筆"; return; }
+          return push(token, r.sha).then(function () { try { localStorage.setItem(KEY + ".sync", new Date().toISOString()); } catch (e) {} msg.textContent = "已同步到 GitHub，共 " + data.items.length + " 筆"; });
+        }).catch(function (e) { msg.textContent = "同步失敗：" + e.message + (/401|403/.test(e.message) ? "（token 無效或沒有這個 repo 的 Contents 寫入權限）" : ""); }).then(function () { bSync.disabled = false; });
+      });
+      if (repo) pull("").then(function (r) { var n0 = data.items.length; data = merge(data, r.data); save(); draw(); if (r.data.items && r.data.items.length) msg.textContent = "已載入 GitHub 上的紀錄，共 " + data.items.length + " 筆" + (data.items.length > n0 ? "（本機新增 " + (data.items.length - n0) + "）" : ""); }).catch(function () {});
+
       function draw() {
         listHost.innerHTML = ""; totalHost.innerHTML = "";
+        var list = data.items;
         if (!list.length) { var e = el("div", "empty"); e.appendChild(el("b", null, "還沒有記帳")); e.appendChild(document.createTextNode("出發後在上面填一筆就會出現在這裡")); listHost.appendChild(e); return; }
         var dates = []; list.forEach(function (x) { if (dates.indexOf(x.date) < 0) dates.push(x.date); });
         dates.sort(function (a, b) { return order.indexOf(a) - order.indexOf(b); });
@@ -747,7 +812,7 @@
           items.forEach(function (x) {
             var r = el("div", "srow"), left = el("div"); left.appendChild(el("div", null, x.item)); left.appendChild(el("div", "m", (x.cat || "") + (x.by && x.by !== "共同" ? " · " + x.by : ""))); r.appendChild(left);
             r.appendChild(el("div", "a", "¥" + fmt(x.amt)));
-            var xb = el("button", "x", "×"); xb.type = "button"; xb.title = "刪除這筆"; xb.addEventListener("click", function () { list = list.filter(function (y) { return y.id !== x.id; }); save(); draw(); }); r.appendChild(xb);
+            var xb = el("button", "x", "×"); xb.type = "button"; xb.title = "刪除這筆"; xb.addEventListener("click", function () { data.deleted.push(x.id); data = merge(data, {}); save(); draw(); msg.textContent = "已刪除，同步後 GitHub 上也會拿掉"; }); r.appendChild(xb);
             g.appendChild(r);
             var v = Number(x.amt) || 0; total += v; by[x.cat || "其他"] = (by[x.cat || "其他"] || 0) + v;
             if (x.by === "我付") mine += v; else if (x.by === "旅伴付") theirs += v;
