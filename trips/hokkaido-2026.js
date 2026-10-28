@@ -299,7 +299,7 @@ window.TRIP = {
     { cat: "證件與租車", text: "Hanna 先到監理站申請補發駕照（台灣駕照遺失）。要先有駕照正本才能辦日文譯本，這項排在最前面", done: false },
     { cat: "證件與租車", text: "台灣駕照日文譯本（監理站 NT$100，國際駕照在日本無效）", done: false },
     { cat: "證件與租車", text: "取車當天在 ORIX 櫃台加 RAP 安心包 ¥660／日（免 NOC、爆胎免費換），網路訂不了", done: false },
-    { cat: "證件與租車", text: "訂車：12/1 13:30 函館駅前店取 → 12/5 16:30 札幌駅前店還。10/28 Tabirai 同條件比價（含免責、NOC、異地還車，另加 ETC 卡 ¥550）：ORIX CX-5 同級 4WD ¥75,443＝VEZEL 同級 ¥75,443，三個大箱子選 CX-5；ORIX Yaris Cross 4WD ¥67,000、Rocky 4WD ¥58,107；NIPPON Yaris Cross 級 4WD ¥75,790、Fit 級 ¥67,540；Toyota 沒標 4WD 且更貴；Times 函館只有機場店。ORIX 官網同車比 Tabirai 便宜約 ¥200 但沒寫 4WD，訂 Tabirai 的 ORIX 方案較穩。異地還車費 ¥22,000 已含", done: false },
+    { cat: "證件與租車", text: "訂車：12/1 13:30 函館駅前店取 → 12/5 16:30 札幌駅前店還。10/28 Tabirai 同條件比價（含免責、NOC、異地還車，另加 ETC 卡 ¥550）：ORIX CX-5 同級 4WD ¥75,443＝VEZEL 同級 ¥75,443，三個大箱子選 CX-5；ORIX Yaris Cross 4WD ¥67,000、Rocky 4WD ¥58,107；NIPPON Yaris Cross 級 4WD ¥75,790、Fit 級 ¥67,540；Toyota 沒標 4WD 且更貴（官網 SUV1 一般料金 ¥53,603，加安心 W ¥8,250 與異地還車約 ¥22,000 估 ¥84,000，4WD 另計）；Times 函館只有機場店和北斗店，不能站前取車。ORIX 官網同車比 Tabirai 便宜約 ¥200 但沒寫 4WD，訂 Tabirai 的 ORIX 方案較穩。異地還車費 ¥22,000 已含", done: false },
     { cat: "證件與租車", text: "ETC 卡取車時借 ¥550。HEP 5 日版 ¥9,600（12/1–12/5）vs Day 3、4、6 過路費合計約 ¥12,000，划算", done: false },
     { cat: "交通票券",   text: "辦好えきねっと帳號（紙本折扣票已全廢）", done: false },
     { cat: "交通票券",   text: "10/30 10:00 開賣：劃 Day 1 北斗指定席，買可變更票種", done: false },
