@@ -780,7 +780,7 @@
         });
       }
       function push(token, sha) {
-        var body = { message: "記帳同步 " + T.id + " " + new Date().toISOString().slice(0, 16).replace("T", " ") + "（" + data.items.length + " 筆）", content: b64e(JSON.stringify(data, null, 2) + "\n"), branch: branch };
+        var body = { message: "記帳同步 " + T.id + " " + new Date().toLocaleString("sv-SE").slice(0, 16) + "（" + data.items.length + " 筆）", content: b64e(JSON.stringify(data, null, 2) + "\n"), branch: branch };
         if (sha) body.sha = sha;
         return fetch(api, { method: "PUT", headers: { Accept: "application/vnd.github+json", Authorization: "Bearer " + token, "Content-Type": "application/json" }, body: JSON.stringify(body) })
           .then(function (r) { if (!r.ok) return r.json().catch(function () { return {}; }).then(function (j) { throw new Error("GitHub 回應 " + r.status + (j.message ? "：" + j.message : "")); }); return r.json(); });
