@@ -325,8 +325,8 @@ window.TRIP = {
   ],
 
   todos: [
-    { cat: "證件與租車", text: "Hanna 先到監理站申請補發駕照（台灣駕照遺失）。要先有駕照正本才能辦日文譯本，這項排在最前面", done: false },
-    { cat: "證件與租車", text: "台灣駕照日文譯本（監理站 NT$100，國際駕照在日本無效）", done: false },
+    { cat: "證件與租車", text: "Hanna 先到監理站申請補發駕照（台灣駕照遺失）。要先有駕照正本才能辦日文譯本，這項排在最前面", done: true },
+    { cat: "證件與租車", text: "台灣駕照日文譯本（監理站 NT$100，國際駕照在日本無效）", done: true },
     { cat: "證件與租車", text: "RAP 安心方案 ¥3,300（免 NOC、爆胎免費換）已含在 Tabirai 預約裡，取車不用再加", done: true },
     { cat: "證件與租車", text: "已訂 ORIX：Tabirai 預約號碼 101865169，CX-5 同等級（RD）4WD 禁菸，12/1 13:30 函館駅前店取 → 12/5 16:30 札幌駅前店還，¥75,993 現場刷卡（含免責、RAP、ETC 卡、異地還車 ¥22,000）。10/28 比價：同價 VEZEL、Yaris Cross ¥67,000、Rocky ¥58,107；NIPPON ¥75,790；Toyota 官網估 ¥84,000 且 4WD 另計；Times 函館無站前店", done: true },
     { cat: "證件與租車", text: "ETC 卡已在預約裡。取車時櫃台辦 HEP 5 日版 ¥9,600（12/1–12/5）vs Day 3、4、6 過路費合計約 ¥12,000，划算", done: false },
