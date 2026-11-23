@@ -221,7 +221,7 @@ window.TRIP = {
     },
     {
       n: 7, date: "12/06", weekday: "日", place: "小樽", leg: "rail", sun: { rise: "06:45", set: "16:02" },
-      title: "小樽一日：三角市場、cafe BAAL、堺町通、運河瓦斯燈 → 札幌站採購",
+      title: "小樽一日：三角市場、cafe BAAL、堺町通、運河瓦斯燈 → 札幌站採購 → 聖誕市集晚餐",
       transport: "JR 快速 Airport 小樽行約 35 分、¥800，只有標示「小樽」的班次才會到。小樽市內全程步行",
       items: [
         { time: "09:30", kind: "move", mode: "rail", from: "札幌", to: "小樽", routeUrl: "https://www.google.com/maps/dir/?api=1&origin=43.0686606,141.3507553&destination=43.1976982,140.9936905&travelmode=transit", via: "JR 快速 Airport（小樽行）", arr: "10:05", dur: "約 35 分，每 30 分一班",
@@ -240,10 +240,12 @@ window.TRIP = {
           board: "16:30 從運河沿中央通上坡走 10 分回小樽站。往札幌方向以 4 番線為主，看看板。快速每 30 分一班，等不到就搭普通車，只慢 15 分",
           alight: "札幌站南口出站，大丸、APIA 地下街就在站內，Stellar Place 在站東側",
           fare: "¥800／人，IC 卡", url: "https://maps.google.com/?cid=11953311579560888229", boardUrl: "https://maps.google.com/?cid=5016398990709404523" },
-        { time: "17:30", kind: "see",  text: "札幌車站商圈先買伴手禮：大丸、Stellar Place、APIA 地下街。大丸 20:00 打烊，先逛大丸。今天能買的先買，Day 8 再補沒買完的", url: "https://maps.google.com/?cid=957704132955663800" },
+        { time: "17:30", kind: "see",  text: "札幌車站商圈先買伴手禮：大丸、Stellar Place、APIA 地下街。大丸 20:00 打烊，先逛大丸。19:00 收手往大通走，今天沒買完的 Day 8 再補", url: "https://maps.google.com/?cid=957704132955663800" },
         { time: "",      kind: "warn", text: "大丸札幌 10:00–20:00；Stellar Place、APIA 營業時間沒查到（印象中約到 21:00），出發前到官網確認週日營業時間" },
-        { time: "19:30", kind: "eat",  text: "晚餐不用訂位、看體力決定：札幌站 Stellar Place 6F 餐廳街直接吃，或放好戰利品後去薄野吃けやき味噌拉麵（開到凌晨）" },
-        { time: "20:30", kind: "see",  text: "札幌市區自由晃，看體力決定：大通公園燈樹節（由緣走 3 分，燈到 22:00）、狸小路、薄野喝一杯，都在走路範圍", url: "https://maps.google.com/?cid=1039401562992074910" },
+        { time: "19:00", kind: "move", mode: "walk", from: "JR 札幌站 南口", to: "大通公園 慕尼黑聖誕市集", routeUrl: "https://www.google.com/maps/dir/?api=1&origin=43.0679978,141.3511417&destination=43.0603472,141.3537229&travelmode=walking", via: "沿駅前通往南，或走チカホ地下步道到大通", arr: "19:10", dur: "約 800 公尺、10 分；提著伴手禮可以先放由緣（大通旁）再過去", url: "https://maps.google.com/?cid=1039401562992074910", boardUrl: "https://maps.google.com/?cid=2961052109947934940" },
+        { time: "19:10", kind: "eat",  text: "慕尼黑聖誕市集當晚餐（大通公園西 1、2 丁目，11:00–21:00）：德國香腸、燉菜、椒鹽捲餅配熱紅酒，邊吃邊逛攤位、看燈樹節。攤位約 20:45 停止供餐，想吃的先買", url: "https://maps.google.com/?cid=1039401562992074910" },
+        { time: "",      kind: "warn", text: "市集是戶外攤位、座位不多，晚上氣溫常在零下，穿暖、戴手套。熱紅酒杯通常要押金，還杯退錢或留著當紀念" },
+        { time: "21:00", kind: "see",  text: "市集收攤後繼續看大通燈樹節（亮到 22:00），由緣就在大通旁，走 3 分回去。還有體力再去狸小路、薄野晃", url: "https://maps.google.com/?cid=1039401562992074910" },
         { time: "22:00", kind: "stay", text: "回由緣泡湯" }
       ]
     },
