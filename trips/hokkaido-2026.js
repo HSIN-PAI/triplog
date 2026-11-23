@@ -221,7 +221,7 @@ window.TRIP = {
     },
     {
       n: 7, date: "12/06", weekday: "日", place: "小樽", leg: "rail", sun: { rise: "06:45", set: "16:02" },
-      title: "小樽一日：三角市場、cafe BAAL、堺町通、運河瓦斯燈 → 札幌海膽丼",
+      title: "小樽一日：三角市場、cafe BAAL、堺町通、運河瓦斯燈 → 札幌站採購",
       transport: "JR 快速 Airport 小樽行約 35 分、¥800，只有標示「小樽」的班次才會到。小樽市內全程步行",
       items: [
         { time: "09:30", kind: "move", mode: "rail", from: "札幌", to: "小樽", routeUrl: "https://www.google.com/maps/dir/?api=1&origin=43.0686606,141.3507553&destination=43.1976982,140.9936905&travelmode=transit", via: "JR 快速 Airport（小樽行）", arr: "10:05", dur: "約 35 分，每 30 分一班",
@@ -238,17 +238,18 @@ window.TRIP = {
         { time: "15:15", kind: "lit",  text: "回小樽運河：15:30–16:30 藍調時刻看瓦斯燈點亮（日落 16:02），這是今天的主菜", url: "https://maps.google.com/?cid=355229862189438753" },
         { time: "16:45", kind: "move", mode: "rail", from: "小樽", to: "札幌", routeUrl: "https://www.google.com/maps/dir/?api=1&origin=43.1976982,140.9936905&destination=43.0686606,141.3507553&travelmode=transit", via: "JR 快速 Airport 或普通車", arr: "17:20", dur: "快速 35 分、普通車約 50 分",
           board: "16:30 從運河沿中央通上坡走 10 分回小樽站。往札幌方向以 4 番線為主，看看板。快速每 30 分一班，等不到就搭普通車，只慢 15 分",
-          alight: "札幌站南口出站，往南走到北 3 條西 4 丁目的日本生命札幌ビル，約 5 分",
+          alight: "札幌站南口出站，大丸、APIA 地下街就在站內，Stellar Place 在站東側",
           fare: "¥800／人，IC 卡", url: "https://maps.google.com/?cid=11953311579560888229", boardUrl: "https://maps.google.com/?cid=5016398990709404523" },
-        { time: "17:30", kind: "eat",  text: "函館うに むらかみ 日本生命札幌ビル店（B1F）海膽丼晚餐：招牌是無添加生海膽丼（80g，附醬菜、味噌湯），也有海膽焗烤、炙燒海膽御膳。晚上 17:30–21:30（L.O. 20:45），吃到 19:00", url: "https://maps.google.com/?cid=18038270948187099917" },
-        { time: "",      kind: "warn", text: "むらかみ約六成座位開放預約，週日晚餐建議先訂（電話 011-290-1000，ぐるなび上也有店家頁面）。不定休，出發前確認 12/6 有開" },
-        { time: "19:15", kind: "see",  text: "札幌市區自由晃，看體力決定：大通公園燈樹節（むらかみ往南走 5 分就到，燈到 22:00）、狸小路、薄野喝一杯或宵夜（けやき味噌拉麵開到凌晨），都在走路範圍", url: "https://maps.google.com/?cid=1039401562992074910" },
+        { time: "17:30", kind: "see",  text: "札幌車站商圈先買伴手禮：大丸、Stellar Place、APIA 地下街。大丸 20:00 打烊，先逛大丸。今天能買的先買，Day 8 再補沒買完的", url: "https://maps.google.com/?cid=957704132955663800" },
+        { time: "",      kind: "warn", text: "大丸札幌 10:00–20:00；Stellar Place、APIA 營業時間沒查到（印象中約到 21:00），出發前到官網確認週日營業時間" },
+        { time: "19:30", kind: "eat",  text: "晚餐不用訂位、看體力決定：札幌站 Stellar Place 6F 餐廳街直接吃，或放好戰利品後去薄野吃けやき味噌拉麵（開到凌晨）" },
+        { time: "20:30", kind: "see",  text: "札幌市區自由晃，看體力決定：大通公園燈樹節（由緣走 3 分，燈到 22:00）、狸小路、薄野喝一杯，都在走路範圍", url: "https://maps.google.com/?cid=1039401562992074910" },
         { time: "22:00", kind: "stay", text: "回由緣泡湯" }
       ]
     },
     {
       n: 8, date: "12/07", weekday: "一", place: "札幌", leg: "city", sun: { rise: "06:45", set: "16:02" },
-      title: "D WORKS 早餐 → 北海道神宮買梅酒 → 白色戀人 → 奧芝湯咖哩 → 白色燈樹節",
+      title: "D WORKS 早餐 → 北海道神宮買梅酒 → 白色戀人 → 奧芝湯咖哩 → むらかみ海膽丼 → 白色燈樹節",
       transport: "早上走路到薄野吃早餐，之後地下鐵東西線一條線：円山公園 → 宮の沢，回程轉南北線到さっぽろ站，全程 IC 卡刷",
       items: [
         { time: "07:40", kind: "move", mode: "walk", from: "由緣札幌", to: "ESPRESSO D WORKS ココノススキノ店", routeUrl: "https://www.google.com/maps/dir/?api=1&origin=43.0622098,141.3456683&destination=43.0553947,141.3529296&travelmode=walking", via: "沿西 7 丁目往南，再往東到南 4 西 4", arr: "08:00", dur: "約 1.3 公里、18 分；不想走就大通搭南北線一站到すすきの", url: "https://maps.google.com/?cid=11879296226467339699" },
@@ -271,9 +272,11 @@ window.TRIP = {
         { time: "13:20", kind: "eat",  text: "奧芝商店 駅前創成寺湯咖哩午餐（北 4 條西 1 丁目ホクレンビル B1F パールタウン，現場排隊、不能訂位）。用餐時段常排 1 小時以上，到了先看隊伍", url: "https://maps.google.com/?cid=15253944211594759480" },
         { time: "",      kind: "warn", text: "奧芝營業時間資料不一（有的寫只開 11:00–15:00，有的寫午晚分段），出發前打 011-207-0266 確認最後點餐時間。13:20 到如果預估排不到最後點餐、或要等超過 1 小時，就換備案 RAMAI" },
         { time: "",      kind: "warn", text: "備案 RAMAI 札幌中央店（南 4 條西 10 丁目 1005-4 コンフォモール札幌 1F，不能訂位）：さっぽろ站搭南北線到大通，轉東西線到西 11 丁目，步行約 5 分，單程約 20 分。人潮通常比奧芝少。中央店營業時間沒查到（本店是 11:30–21:30、週四休），先打 011-211-0697 確認。吃完搭東西線回大通，轉南北線到さっぽろ站", url: "https://maps.google.com/?cid=18194825813941315729" },
-        { time: "15:00", kind: "see",  text: "札幌車站商圈最後大採購。伴手禮今天買齊，Day 9 機場只補貨", url: "https://maps.google.com/?cid=957704132955663800" },
-        { time: "18:00", kind: "eat",  text: "串燒居酒屋或蟹料理（羊肉已在 Day 2 大黑屋吃過，避免重複）", url: "https://maps.google.com/?cid=15410610176912273285" },
-        { time: "19:30", kind: "lit",  text: "大通公園白色燈樹節＋慕尼黑聖誕市集（2026 大通會場 11/20–12/25；駅前通、南一条通會場亮到 3/14）。由緣就在公園旁，Day 6、7 晚上順路也看得到", url: "https://maps.google.com/?cid=1039401562992074910" },
+        { time: "15:00", kind: "see",  text: "札幌車站商圈補買：Day 7 晚上沒買完的今天補齊，Day 9 機場只補貨。17:30 往南走去大通，約 10 分", url: "https://maps.google.com/?cid=957704132955663800" },
+        { time: "17:40", kind: "lit",  text: "大通公園白色燈樹節＋慕尼黑聖誕市集（大通會場 11/20–12/25，市集 11:00–21:00；駅前通、南一条通會場亮到 3/14）。晚餐前先逛市集、看燈，18:45 往回走到むらかみ，約 10 分。別在市集吃太多", url: "https://maps.google.com/?cid=1039401562992074910" },
+        { time: "19:00", kind: "eat",  text: "函館うに むらかみ 日本生命札幌ビル店（B1F，札幌站南口步行約 5 分）海膽丼晚餐。✅ 已透過 Tabelog 訂位 12/7（一）19:00、2 位（僅訂座位）。招牌是無添加生海膽丼，也有木箱生海膽、海膽焗烤、炙燒海膽御膳。吃到 20:15", url: "https://maps.google.com/?cid=18038270948187099917" },
+        { time: "",      kind: "warn", text: "むらかみ：遲到超過 15 分鐘會被取消訂位，會晚到先打 011-290-1000。餐費現場付，可刷卡、Suica、PayPay；點酒另收小菜費 ¥495" },
+        { time: "20:15", kind: "lit",  text: "吃完看體力：沿大通公園再看一次燈樹節（亮到 22:00），慢慢走回由緣，約 15 分", url: "https://maps.google.com/?cid=1039401562992074910" },
         { time: "21:00", kind: "stay", text: "回房整理行李", url: "https://maps.google.com/?cid=8083143377834193961" }
       ]
     },
@@ -333,6 +336,7 @@ window.TRIP = {
     { cat: "住宿",       text: "住宿八晚全部訂妥，合計 TWD 45,648", done: true },
     { cat: "住宿",       text: "原 SAPPORO STREAM HOTEL 11/30 已取消", done: true },
     { cat: "餐廳訂位",   text: "大黑屋 函館五稜郭店：Tabelog 12/1（二）18:00、2 位。12/1 05:59 JST 前免費取消，當天 ¥3,000／人；餐費現場付備現金", done: true },
+    { cat: "餐廳訂位",   text: "函館うに むらかみ 日本生命札幌ビル店：Tabelog 12/7（一）19:00、2 位（僅訂座位）。遲到 15 分鐘取消；餐費現場付", done: true },
     { cat: "出發前再確認", text: "五稜星の夢 2026-27 點燈期間與五稜郭塔營業時間", done: false },
     { cat: "出發前再確認", text: "青池・白鬚瀑布點燈時間（往年 12 月 16:30–21:00）", done: false },
     { cat: "出發前再確認", text: "洞爺湖溫泉燈飾隧道期間（往年 11/1–2/28、17:00–22:00）", done: false },
