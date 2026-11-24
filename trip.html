@@ -116,6 +116,11 @@
     .dtitle { font-weight: 700; font-size: 1.05rem; line-height: 1.4; margin-top: 4px; text-wrap: balance; }
     .dtrans { display: flex; align-items: center; gap: 6px; margin-top: 6px; font-size: .78rem; color: var(--muted); }
     .dtrans svg { flex: none; color: var(--seg, var(--accent)); }
+    .dwx { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 8px; font-size: .74rem; color: var(--muted); }
+    .dwx .wx { padding: 2px 9px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); white-space: nowrap; }
+    .dwx .wx b { color: var(--fg); font-weight: 600; }
+    .dwx .wx.snow { border-color: var(--accent); color: var(--fg); }
+    .dwx .asof { font-size: .68rem; color: var(--faint); }
     .cover { display: block; width: 100%; max-height: 220px; object-fit: cover; }
     /* 日照時間軸：06:00–24:00，日出前與日落後是夜色，行程以色點落在真實時間位置，點一下跳到該項目 */
     .daybar { padding: 10px 18px 0; }
@@ -520,6 +525,18 @@
         meta.appendChild(dd);
         meta.appendChild(el("div", "dtitle", d.title || ""));
         if (d.transport) { var tr = el("div", "dtrans"); tr.appendChild(iconTransit(d.leg)); tr.appendChild(el("span", null, d.transport)); meta.appendChild(tr); }
+        // 天氣預報：每個地點一顆小標籤，有雪的加重顏色；最後標預報發布時間
+        if (d.weather && d.weather.length) {
+          var wx = el("div", "dwx");
+          d.weather.forEach(function (w) {
+            var chip = el("span", "wx" + (/雪/.test(w.sky || "") ? " snow" : ""));
+            chip.appendChild(el("b", null, w.place || ""));
+            chip.appendChild(document.createTextNode(" " + (w.sky || "") + " " + w.hi + "°／" + w.lo + "°" + (w.pop != null ? "　降水 " + w.pop + "%" : "") + (w.conf ? "　信賴度 " + w.conf : "")));
+            wx.appendChild(chip);
+          });
+          if (T.weatherAsOf) wx.appendChild(el("span", "asof", T.weatherAsOf));
+          meta.appendChild(wx);
+        }
         head.appendChild(meta); card.appendChild(head);
         if (d.img) { var img = el("img", "cover"); img.src = d.img; img.alt = d.title || ""; img.loading = "lazy"; card.appendChild(img); }
 

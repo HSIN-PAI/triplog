@@ -5,6 +5,7 @@
 // 欄位說明
 //   days[].place / leg   ：當天所在地（路線圖站名）／交通型態 rail 鐵路 | drive 自駕 | city 市區
 //   days[].sun           ：當天日出／日落（畫日照時間軸用），選填
+//   days[].weather       ：當天各地預報 [{ place, sky 天氣, hi/lo 高低溫, pop 降水機率 %, conf 信賴度 A–E 選填 }]，選填
 //   days[].img           ：當天封面圖片網址，選填
 //   days[].items[].kind：move 移動 | see 景點 | eat 吃 | lit 點燈 | stay 住宿 | warn 提醒
 //   days[].items[].url ：選填，會顯示成「地圖」小連結
@@ -29,11 +30,12 @@ window.TRIP = {
   travelers: 2,
   updated: "2026-11-23（第八次修訂：依美食清單加入 Day 2 Angelique Voyage、Day 8 ESPRESSO D WORKS 早餐與奧芝商店湯咖哩午餐）",
   start: "2026-11-30", end: "2026-12-08",   // 倒數、標示「今天」用（ISO 日期）
+  weatherAsOf: "tenki.jp 兩週預報，11/24 16:00 發布",   // 顯示在每天天氣標籤後面；更新預報時一起改
   rate: { JPY: 0.21 },                      // 1 日圓換多少台幣，費用表換算用；出發前改成當時匯率
 
   days: [
     {
-      n: 1, date: "11/30", weekday: "一", place: "函館", leg: "rail", sun: { rise: "06:40", set: "16:05" },
+      n: 1, date: "11/30", weekday: "一", place: "函館", leg: "rail", sun: { rise: "06:40", set: "16:05" }, weather: [{ place: "千歲", sky: "陰時晴", hi: 7, lo: -2, pop: 30 }, { place: "函館", sky: "陰", hi: 10, lo: 2, pop: 40 }],
       title: "抵達 → 特急北斗直達函館，大門橫丁晚餐",
       transport: "機場搭快速 Airport 一站到南千歲，換特急北斗 18 號直達函館。全程只換一次車",
       items: [
@@ -60,7 +62,7 @@ window.TRIP = {
       ]
     },
     {
-      n: 2, date: "12/01", weekday: "二", place: "函館", leg: "city", sun: { rise: "06:40", set: "16:05" },
+      n: 2, date: "12/01", weekday: "二", place: "函館", leg: "city", sun: { rise: "06:40", set: "16:05" }, weather: [{ place: "函館", sky: "晴", hi: 11, lo: 7, pop: 40 }],
       title: "函館一日：朝市、元町、五稜星の夢、大黑屋、百萬夜景",
       transport: "市電＋自駕。上午市電遊元町、灣區，13:30 ORIX 函館駅前店取車，下午開修道院、五稜郭，晚餐後停回 JR Inn 再搭市電上函館山",
       items: [
@@ -115,7 +117,7 @@ window.TRIP = {
       ]
     },
     {
-      n: 3, date: "12/02", weekday: "三", place: "洞爺湖", leg: "drive", sun: { rise: "06:40", set: "16:00" },
+      n: 3, date: "12/02", weekday: "三", place: "洞爺湖", leg: "drive", sun: { rise: "06:40", set: "16:00" }, weather: [{ place: "函館", sky: "晴後雨", hi: 10, lo: 3, pop: 60 }, { place: "洞爺湖", sky: "陰後雪", hi: 7, lo: 1, pop: 80 }],
       title: "函館出發 → 大沼 → 洞爺湖溫泉",
       transport: "自駕。08:00 從 JR Inn 停車場出發，大沼繞一圈後上道央道，126 公里高速到洞爺湖",
       items: [
@@ -140,7 +142,7 @@ window.TRIP = {
       ]
     },
     {
-      n: 4, date: "12/03", weekday: "四", place: "富良野", leg: "drive", sun: { rise: "06:35", set: "15:55" },
+      n: 4, date: "12/03", weekday: "四", place: "富良野", leg: "drive", sun: { rise: "06:35", set: "15:55" }, weather: [{ place: "洞爺湖", sky: "陰一時雪", hi: 3, lo: 1, pop: 70 }, { place: "富良野", sky: "陰時雪", hi: 1, lo: -2, pop: 80 }],
       title: "洞爺湖 → 富良野",
       transport: "自駕。道央道 → 道東道 → 占冠 IC → 國道 237，約 250 公里、冬季 3.5～4 小時",
       items: [
@@ -157,7 +159,7 @@ window.TRIP = {
       ]
     },
     {
-      n: 5, date: "12/04", weekday: "五", place: "美瑛", leg: "drive", sun: { rise: "06:35", set: "15:55" },
+      n: 5, date: "12/04", weekday: "五", place: "美瑛", leg: "drive", sun: { rise: "06:35", set: "15:55" }, weather: [{ place: "美瑛", sky: "陰", hi: 0, lo: -6, pop: 40 }],
       title: "美瑛白天雪原，入夜連拍兩處點燈",
       transport: "自駕。富良野 → 美瑛市街 35 公里，美瑛 → 白金（青池）20 公里，看完點燈 17:20 上車、天黑後開 45 公里回富良野（全程唯一夜駕，風險在道道 966 前 20 公里）",
       items: [
@@ -182,7 +184,7 @@ window.TRIP = {
       ]
     },
     {
-      n: 6, date: "12/05", weekday: "六", place: "TOMAMU→札幌", leg: "drive", sun: { rise: "06:45", set: "16:00" },
+      n: 6, date: "12/05", weekday: "六", place: "TOMAMU→札幌", leg: "drive", sun: { rise: "06:45", set: "16:00" }, weather: [{ place: "占冠", sky: "陰時晴", hi: -1, lo: -7, pop: 40, conf: "E" }, { place: "札幌", sky: "陰時晴", hi: 2, lo: -2, pop: 40, conf: "E" }],
       title: "霧冰露台 → 支笏湖 → 札幌還車",
       transport: "自駕南線約 250 公里：富良野 → 星野 TOMAMU 霧冰露台 → 道東道 → 千歲 → 支笏湖 → 札幌，15:25 由緣門口卸行李、15:40 ORIX 札幌駅前店還車。全程白天",
       items: [
@@ -221,7 +223,7 @@ window.TRIP = {
       ]
     },
     {
-      n: 7, date: "12/06", weekday: "日", place: "小樽", leg: "rail", sun: { rise: "06:45", set: "16:02" },
+      n: 7, date: "12/06", weekday: "日", place: "小樽", leg: "rail", sun: { rise: "06:45", set: "16:02" }, weather: [{ place: "小樽", sky: "陰一時雪", hi: 2, lo: -2, pop: 80, conf: "C" }],
       title: "小樽一日：三角市場、cafe BAAL、堺町通、運河瓦斯燈 → 札幌站採購 → 聖誕市集晚餐",
       transport: "JR 快速 Airport 小樽行約 35 分、¥800，只有標示「小樽」的班次才會到。小樽市內全程步行",
       items: [
@@ -251,7 +253,7 @@ window.TRIP = {
       ]
     },
     {
-      n: 8, date: "12/07", weekday: "一", place: "札幌", leg: "city", sun: { rise: "06:45", set: "16:02" },
+      n: 8, date: "12/07", weekday: "一", place: "札幌", leg: "city", sun: { rise: "06:45", set: "16:02" }, weather: [{ place: "札幌", sky: "陰", hi: 1, lo: -3, pop: 40, conf: "E" }],
       title: "D WORKS 早餐 → 北海道神宮買梅酒 → 白色戀人 → 奧芝湯咖哩 → むらかみ海膽丼 → 白色燈樹節",
       transport: "早上走路到薄野吃早餐，之後地下鐵東西線一條線：円山公園 → 宮の沢，回程轉南北線到さっぽろ站，全程 IC 卡刷",
       items: [
